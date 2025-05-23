@@ -2,6 +2,12 @@
 
 <h1 align="center">Ghost-Ink</h1>
 <p align="center">👻 Boo!</p>
+<div align="center">
+	<a>📗Tutorials (in soon)</a> |
+	<a>📘Docs (in soon)</a> |
+	<a>🌐Creator (in soon)</a> |
+	<a href="https://github.com/INeedJobToStartWork/Ghost-Ink/blob/main/CONTRIBUTING.md">🏗️Contributing Guide</a> 
+</div>
 <hr/>
 
 <!-- About package:
@@ -23,10 +29,20 @@ What you get:
 
 ## List of Contest
 
+- [List of Contest](#list-of-contest)
+- [Packages](#packages)
+- [Logic](#logic)
+- [🛠️ Creators](#️-creators)
+- [🧩 Components](#-components)
+- [⚙️ Systems (Atoms)](#️-systems-atoms)
+- [💄 Styles (Atoms)](#-styles-atoms)
+- [🎭Themes](#themes)
+  - [List](#list)
+
 ## Packages
 
 - [ ] `@GhostInk/cli` - Styled CLI Component Library
-- [ ] `@GhostInk` - Styled CLI Component Library
+- [ ] `@GhostInk/creator` - Unstyled CLI Component Library (Use it for your own libs)
 - [ ] `ghostink-template` - Github Repository template to create own library.
 
 ## Logic
@@ -42,6 +58,10 @@ Reusable, ready-to-use components for building command-line interfaces.
 ## ⚙️ Systems (Atoms)
 
 Core atomic systems and utilities integrated into components.
+
+## 💄 Styles (Atoms)
+
+Style renderers for consistent CLI output.
 
 ## 🎭Themes
 

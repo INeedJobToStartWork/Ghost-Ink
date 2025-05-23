@@ -28,7 +28,7 @@ importers:
         specifier: latest
         version: 2.5.2
 
-  packages/test-package:
+  packages/ghost-ink:
     dependencies:
       commander:
         specifier: ^12.1.0

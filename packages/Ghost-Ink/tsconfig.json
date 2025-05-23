@@ -2,7 +2,7 @@
 	"$schema": "http://json.schemastore.org/tsconfig",
 	"compilerOptions": {
 		"jsx": "react",
-		"outDir": "./dist",
+		"outDir": "dist",
 		"baseUrl": "src",
 		"paths": {
 			"@/*": ["*", "*/index.ts", "*.ts"]

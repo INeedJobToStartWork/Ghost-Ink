@@ -1,4 +1,4 @@
-<!-- ![CommitSmileBanner](https://github.com/INeedJobToStartWork/Commit-Smile/assets/97305201/7b18af3e-7472-47f5-99e8-6f97574d2ea7) -->
+![image](https://github.com/user-attachments/assets/2683f57f-fc84-4115-a8a9-5c83067d2326)
 
 <h1 align="center">Ghost-Ink</h1>
 <p align="center">👻 Boo!</p>

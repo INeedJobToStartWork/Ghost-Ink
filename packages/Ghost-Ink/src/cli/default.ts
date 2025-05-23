@@ -16,7 +16,7 @@ interface IOptionParams extends IOptionsDebugger, IOptionsConfig {
 //----------------------
 
 program
-	.description("Execute Let-me-test application")
+	.description("Execute Ghost-ink application")
 	.argument("<input>")
 	.argument("[output]")
 	.addOption(optionConfig)

@@ -6,20 +6,20 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking the time to report a bug to Let-me-test! 🙏
+        Thank you for taking the time to report a bug to Ghost-ink! 🙏
 
         This report section is for reporting issues with the documentation. If you have a question about how to achieve something and are struggling, please post a question
 
 
         If you have a question about how to achieve something and are struggling, please post a question
         inside of either of the following places:
-          - Let-me-test's 💬[Discussion's tab](https://github.com/INeedJobToStartWork/Let-me-test/discussions)
+          - Ghost-ink's 💬[Discussion's tab](https://github.com/INeedJobToStartWork/Ghost-ink/discussions)
           
 
         Before submitting a new bug/issue, please check the links below to see if there is a solution or question posted there already:
-          - Let-me-test's [Issue's tab](https://github.com/INeedJobToStartWork/Let-me-test/issues)
-          - Let-me-test's [closed issues tab](https://github.com/INeedJobToStartWork/Let-me-test/issues?q=is%3Aissue+state%3Aclosed)
-          - Let-me-test's [Discussions tab](https://github.com/INeedJobToStartWork/Let-me-test/discussions)
+          - Ghost-ink's [Issue's tab](https://github.com/INeedJobToStartWork/Ghost-ink/issues)
+          - Ghost-ink's [closed issues tab](https://github.com/INeedJobToStartWork/Ghost-ink/issues?q=is%3Aissue+state%3Aclosed)
+          - Ghost-ink's [Discussions tab](https://github.com/INeedJobToStartWork/Ghost-ink/discussions)
 
 
         Please fill in as much of the template below as you're able. If you don't know the answer to a question, that's okay, but please try to fill in as much as you can.

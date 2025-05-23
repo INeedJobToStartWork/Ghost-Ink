@@ -2,13 +2,13 @@
 	"indent": 4,
 	"remove": ["devDependencies", "dependencies", "lint-staged", "bin"],
 	"replace": {
-		"name": "let-me-test",
+		"name": "ghost-ink",
 		"type": "commonjs",
 		"scripts": {
 			"npm:postpack": "clean-package restore"
 		},
 		"bin": {
-			"Let-me-test": "./bin/app.mjs"
+			"Ghost-ink": "./bin/app.mjs"
 		},
 		"exports": {
 			".": {

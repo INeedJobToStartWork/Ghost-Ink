@@ -1,11 +1,11 @@
 {
-	"name": "@packages/test-package-1",
+	"name": "@packages/ghost-ink",
 	"version": "0.1.0",
 	"private": true,
 	"type": "module",
 	"bin": {
-		"test-package-1-dev": "./lib/bin/app.cjs",
-		"test-package-1-prod": "./dist/bin/app.cjs"
+		"test-ghost-ink-dev": "./lib/bin/app.cjs",
+		"test-ghost-ink-prod": "./dist/bin/app.cjs"
 	},
 	"scripts": {
 		"------------------------INSTALLATION-------------------": "",

@@ -2,13 +2,10 @@
 	"indent": 4,
 	"remove": ["devDependencies", "dependencies", "lint-staged", "bin"],
 	"replace": {
-		"name": "ghost-ink",
+		"name": "@GhostInk/cli",
 		"type": "commonjs",
 		"scripts": {
 			"npm:postpack": "clean-package restore"
-		},
-		"bin": {
-			"Ghost-ink": "./bin/app.mjs"
 		},
 		"exports": {
 			".": {

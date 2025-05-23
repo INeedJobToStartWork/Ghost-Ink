@@ -34,15 +34,16 @@ What you get:
 - [Logic](#logic)
 - [🛠️ Creators](#️-creators)
 - [🧩 Components](#-components)
+	- [List](#list)
 - [⚙️ Systems (Atoms)](#️-systems-atoms)
 - [💄 Styles (Atoms)](#-styles-atoms)
 - [🎭Themes](#themes)
-  - [List](#list)
+	- [List](#list-1)
 
 ## Packages
 
 - [ ] `@GhostInk/cli` - Styled CLI Component Library
-- [ ] `@GhostInk/creator` - Unstyled CLI Component Library (Use it for your own libs)
+- [ ] `@GhostInk/core` - Unstyled CLI Component Library (Core) (Use it for your own libs)
 - [ ] `ghostink-template` - Github Repository template to create own library.
 
 ## Logic
@@ -54,6 +55,15 @@ Prebuilt component generators designed to simplify the creation of your own CLI 
 ## 🧩 Components
 
 Reusable, ready-to-use components for building command-line interfaces.
+
+### List
+
+| Category | Component | Description | Example |
+| -------- | --------- | ----------- | ------- |
+| Utils    | x         | x           | x       |
+| Prompts  | Input     | x           | x       |
+| Prompts  | Confirm   | x           | x       |
+| Prompts  | x         | x           | x       |
 
 ## ⚙️ Systems (Atoms)
 

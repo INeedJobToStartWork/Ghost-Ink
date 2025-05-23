@@ -28,11 +28,86 @@ importers:
         specifier: latest
         version: 2.5.2
 
-  packages/ghost-ink:
+  apps/playground:
     dependencies:
+      '@packages/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli/dist
       commander:
         specifier: ^12.1.0
         version: 12.1.0
+    devDependencies:
+      '@ineedj/eslintrc':
+        specifier: 1.2.3
+        version: 1.2.3(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@5.8.3))(tailwindcss@3.4.17)(typescript@5.8.3)
+      '@ineedj/prettierrc':
+        specifier: 3.0.0
+        version: 3.0.0(prettier@3.5.3)
+      '@ineedj/tsconfig':
+        specifier: ^1.0.0
+        version: 1.0.0
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.15.3
+      clean-package:
+        specifier: ^2.2.0
+        version: 2.2.0
+      esbuild-plugin-copy:
+        specifier: ^2.1.1
+        version: 2.1.1(esbuild@0.25.3)
+      eslint:
+        specifier: ^8.57.1
+        version: 8.57.1
+      prettier:
+        specifier: ^3.4.2
+        version: 3.5.3
+      tsup:
+        specifier: ^8.3.5
+        version: 8.4.0(jiti@1.21.7)(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.1)
+      typescript:
+        specifier: ^5.6.3
+        version: 5.8.3
+    publishDirectory: dist
+
+  packages/cli:
+    dependencies:
+      '@packages/core':
+        specifier: workspace:*
+        version: link:../core/dist
+    devDependencies:
+      '@ineedj/eslintrc':
+        specifier: 1.2.3
+        version: 1.2.3(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@5.8.3))(tailwindcss@3.4.17)(typescript@5.8.3)
+      '@ineedj/prettierrc':
+        specifier: 3.0.0
+        version: 3.0.0(prettier@3.5.3)
+      '@ineedj/tsconfig':
+        specifier: ^1.0.0
+        version: 1.0.0
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.15.3
+      clean-package:
+        specifier: ^2.2.0
+        version: 2.2.0
+      esbuild-plugin-copy:
+        specifier: ^2.1.1
+        version: 2.1.1(esbuild@0.25.3)
+      eslint:
+        specifier: ^8.57.1
+        version: 8.57.1
+      prettier:
+        specifier: ^3.4.2
+        version: 3.5.3
+      tsup:
+        specifier: ^8.3.5
+        version: 8.4.0(jiti@1.21.7)(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.1)
+      typescript:
+        specifier: ^5.6.3
+        version: 5.8.3
+    publishDirectory: dist
+
+  packages/core:
     devDependencies:
       '@ineedj/eslintrc':
         specifier: 1.2.3

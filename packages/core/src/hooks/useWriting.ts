@@ -49,7 +49,7 @@ export const useWriting = () => {
 					type: "ADD",
 					payload: { value: input, from: stateCursor }
 				});
-				setCursorDispatch({ type: "MOVE_CURSOR", payload: 1, max: state.length + 1 });
+				setCursorDispatch({ type: "MOVE_CURSOR", payload: 1, max: state.length });
 				break;
 			}
 		}

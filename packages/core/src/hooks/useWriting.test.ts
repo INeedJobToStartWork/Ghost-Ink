@@ -1,3 +1,5 @@
+/* eslint-disable vitest/no-commented-out-tests */
+/* eslint-disable max-lines */
 // /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // /* eslint-disable @typescript-eslint/no-unsafe-call */
 // /* eslint-disable @typescript-eslint/require-await */
@@ -540,4 +542,5 @@ import { test } from "vitest";
 // 	// });
 // });
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call, vitest/expect-expect
 test("temporary", () => "");

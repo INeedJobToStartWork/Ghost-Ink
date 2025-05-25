@@ -32,7 +32,7 @@
     "npm:version": "changeset version",
     "npm:publish": "changeset publish",
     "------------------------TESTS--------------------------": "",
-    "test": "vitest",
+    "test": "turbo test",
     "bench": "turbo bench"
   },
   "devDependencies": {

@@ -8,11 +8,6 @@
 			"@/*": ["*", "*/index.ts", "*.ts", "*.tsx"]
 		},
 		"stripInternal": true,
-		"plugins": [
-			{
-				"name": "./plugins/jsdoc-reference-plugin.js"
-			}
-		],
 		// "plugins": [
 		// 	{
 		// 		"transform": "typia/lib/transform"

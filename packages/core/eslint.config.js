@@ -14,10 +14,10 @@ export default ineedj({
 	syntax: {
 		vitest: true,
 		eslint: true,
-		jsx: false,
+		jsx: true,
 		next: false,
 		node: true,
-		react: false,
+		react: true,
 		storybook: false,
 		tailwindcss: false,
 		typescript: true,
@@ -33,5 +33,6 @@ export default ineedj({
 	"@EslintNode/no-process-env",
 	"@EslintNode/no-process-exit",
 	"@EslintUnicorn/no-process-exit",
-	"@EslintNode/hashbang"
+	"@EslintNode/hashbang",
+	"@typescript-eslint/explicit-module-boundary-types"
 );

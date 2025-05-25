@@ -25,17 +25,25 @@
 		"------------------------NPM--------------------------": "",
 		"prepublishOnly": "pnpm build:npm"
 	},
+	"dependencies": {
+		"ink": "^5.2.1",
+		"oh-my-error": "^2.0.2",
+		"react": "^18"
+	},
 	"devDependencies": {
 		"@ineedj/eslintrc": "1.2.3",
 		"@ineedj/prettierrc": "3.0.0",
 		"@ineedj/tsconfig": "^1.0.0",
+		"@types/ink": "^2.0.3",
 		"@types/node": "^22.15.3",
+		"@types/react": "^19.1.5",
 		"clean-package": "^2.2.0",
 		"esbuild-plugin-copy": "^2.1.1",
 		"eslint": "^8.57.1",
 		"prettier": "^3.4.2",
 		"tsup": "^8.3.5",
-		"typescript": "^5.6.3"
+		"typescript": "^5.6.3",
+		"vitest": "^3.1.4"
 	},
 	"publishConfig": {
 		"access": "public",

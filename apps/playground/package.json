@@ -4,8 +4,8 @@
 	"private": true,
 	"type": "module",
 	"bin": {
-		"test-ghost-ink-dev": "./lib/bin/app.cjs",
-		"test-ghost-ink-prod": "./dist/bin/app.cjs"
+		"test-ghost-ink-dev": "./lib/bin/app.js",
+		"test-ghost-ink-prod": "./dist/bin/app.js"
 	},
 	"scripts": {
 		"------------------------INSTALLATION-------------------": "",
@@ -48,7 +48,9 @@
 		"tag": "latest"
 	},
 	"dependencies": {
+		"@packages/cli": "workspace:*",
 		"commander": "^12.1.0",
-		"@packages/cli": "workspace:*"
+		"ink": "^5.2.1",
+		"react": "^18"
 	}
 }

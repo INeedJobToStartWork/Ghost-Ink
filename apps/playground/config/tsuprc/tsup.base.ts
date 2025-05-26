@@ -30,7 +30,8 @@ export const BasicConfig = (isDev: boolean) =>
 			outDir: `${isDev ? "lib" : "dist"}/bin`,
 			target: "esnext",
 			banner: addNodeRequireShim,
-			watch: isDev ? ["src"] : false
+			watch: isDev ? ["src"] : false,
+			format: ["esm"]
 		},
 		PACKAGE: {
 			entry: ["src/index.ts"],

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/require-await */
 import { describe, expect, test } from "vitest";
-import { cursorReducer, CURSOR_ACTIONS_TYPES, MY_ERROR_LIST } from "./cursorReducer";
+import { cursorReducer, CURSOR_ACTIONS_TYPES, MY_ERROR_LIST_CURSOR_REDUCER } from "./cursorReducer";
 import { myError } from "oh-my-error";
 
 describe("[FUNCTION] cursorReducer", () => {
@@ -75,7 +75,7 @@ describe("[FUNCTION] cursorReducer", () => {
 				});
 			} catch (error) {
 				expect(error).toEqual(
-					myError(MY_ERROR_LIST.MISSING_PROPERTY, {
+					myError(MY_ERROR_LIST_CURSOR_REDUCER.MISSING_PROPERTY, {
 						message: { dev: ["max"] },
 						hint: { dev: ["If payload it's > 0 - Define max value"] }
 					})
@@ -92,7 +92,7 @@ describe("[FUNCTION] cursorReducer", () => {
 				});
 			} catch (error) {
 				expect(error).toEqual(
-					myError(MY_ERROR_LIST.NOT_FOUND_ACTION, {
+					myError(MY_ERROR_LIST_CURSOR_REDUCER.NOT_FOUND_ACTION, {
 						message: { dev: ["UNKNOWN_ACTION"] }
 					})
 				);

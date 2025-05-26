@@ -7,7 +7,7 @@ import type { IMyError, TMyErrorList } from "oh-my-error";
 //----------------------
 
 /** @internal @dontexport */
-export const MY_ERROR_LIST = {
+export const MY_ERROR_LIST_CURSOR_REDUCER = {
 	NOT_FOUND_ACTION: {
 		name: "Not found action",
 		code: "NOT_FOUND_ACTION",
@@ -101,7 +101,7 @@ export const cursorReducer = <T extends number>(state: number, action: TCursorRe
 		}
 		case CURSOR_ACTIONS_TYPES.MOVE_CURSOR: {
 			if (action.payload > 0 && !("max" in action)) {
-				throw myError(MY_ERROR_LIST.MISSING_PROPERTY, {
+				throw myError(MY_ERROR_LIST_CURSOR_REDUCER.MISSING_PROPERTY, {
 					message: { dev: ["max"] },
 					hint: { dev: ["If payload it's > 0 - Define max value"] }
 				});
@@ -119,7 +119,7 @@ export const cursorReducer = <T extends number>(state: number, action: TCursorRe
 		default: {
 			// @ts-expect-error action.type:never but it still can be anything, string,number etc which case do not exist
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-			throw myError(MY_ERROR_LIST.NOT_FOUND_ACTION, { message: { dev: [action.type] } });
+			throw myError(MY_ERROR_LIST_CURSOR_REDUCER.NOT_FOUND_ACTION, { message: { dev: [action.type] } });
 		}
 	}
 };

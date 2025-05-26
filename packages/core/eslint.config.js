@@ -34,5 +34,11 @@ export default ineedj({
 	"@EslintNode/no-process-exit",
 	"@EslintUnicorn/no-process-exit",
 	"@EslintNode/hashbang",
-	"@typescript-eslint/explicit-module-boundary-types"
+	"@typescript-eslint/explicit-module-boundary-types",
+	"@EslintReact/jsx-filename-extension", // Temporary off cuz config error
+	"@EslintReact/jsx-no-leaked-render", // Temporary off cuz config error
+	"@EslintReact/jsx-no-literals", // Temporary off cuz config error
+	"@EslintReactHooks/rules-of-hooks", // Temporary off cuz config error: Could not find plugin "@EslintReactHooks".
+	"@EslintReactHooks/exhaustive-deps", // Temporary off cuz config error:  Could not find plugin "@EslintReactHooks"
+	"@EslintReact/destructuring-assignment"
 );

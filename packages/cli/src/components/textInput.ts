@@ -2,6 +2,8 @@
 // Functions
 //----------------------
 
+import { InputUncontrolled } from "@packages/core";
+
 /**
  * My function description.
  *
@@ -10,8 +12,7 @@
  *
  * const results = myFunction()
  */
-export function myFunction(): void {
-	console.log("Hello from myFunction!");
-}
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+export const TextInput = InputUncontrolled;
 
-export default myFunction;
+export default TextInput;

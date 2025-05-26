@@ -1,10 +1,13 @@
+import InputControlled from "./inputControlled";
+import InputUncontrolled from "./inputUncontrolled";
+
 //----------------------
 // Functions
 //----------------------
-
-export function InputCreator(): void {
-	// const [stateCursor, dispatchCursor] = useReducer(cursorReducer, 0);
-	console.log("TODO");
-}
+/**
+ *  TODO: Implement description
+ *  TODO: Implement that
+ */
+export const InputCreator = () => [InputUncontrolled, InputControlled];
 
 export default InputCreator;

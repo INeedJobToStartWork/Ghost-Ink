@@ -26,7 +26,7 @@ export const useWriting = () => {
 		// eslint-disable-next-line default-case, @typescript-eslint/switch-exhaustiveness-check
 		switch (true) {
 			case key.leftArrow: {
-				setCursorDispatch({ type: "MOVE_CURSOR", payload: -1, max: 99 }); //TODO: FIX Z MAX
+				setCursorDispatch({ type: "MOVE_CURSOR", payload: -1, max: 99 }); //TODO: FIX MAX SHOULDN'T BE REQUIRED
 				break;
 			}
 			case key.rightArrow: {
@@ -41,7 +41,7 @@ export const useWriting = () => {
 						value: 1
 					}
 				});
-				if (key.backspace) setCursorDispatch({ type: "MOVE_CURSOR", payload: -1, max: 99 }); //TODO: FIX Z MAX
+				if (key.backspace) setCursorDispatch({ type: "MOVE_CURSOR", payload: -1, max: 99 }); //TODO: FIX MAX SHOULDN'T BE REQUIRED
 				break;
 			}
 			case input && !key.ctrl && !key.meta: {

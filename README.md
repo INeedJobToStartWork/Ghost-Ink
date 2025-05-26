@@ -32,13 +32,14 @@ What you get:
 - [List of Contest](#list-of-contest)
 - [Packages](#packages)
 - [Logic](#logic)
+  - [Standards](#standards)
 - [🛠️ Creators](#️-creators)
 - [🧩 Components](#-components)
-	- [List](#list)
+  - [List](#list)
 - [⚙️ Systems (Atoms)](#️-systems-atoms)
 - [💄 Styles (Atoms)](#-styles-atoms)
 - [🎭Themes](#themes)
-	- [List](#list-1)
+  - [List](#list-1)
 
 ## Packages
 
@@ -48,11 +49,21 @@ What you get:
 
 ## Logic
 
+### Standards
+
+Standards which we want to achieve.
+
+- 🛡️ Type safety
+- 📖 TSDocs (Internal documentation)
+- 🧩 Controlled & UnControlled
+
 ## 🛠️ Creators
 
 Prebuilt component generators designed to simplify the creation of your own CLI libraries.
 
 ## 🧩 Components
+
+---
 
 Reusable, ready-to-use components for building command-line interfaces.
 

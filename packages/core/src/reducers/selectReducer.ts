@@ -40,10 +40,10 @@ export const SELECT_ACTIONS_TYPES = {
 // Types
 //----------------------
 
-/** Direction of text selection */
+/** Direction of text selection @dontexport */
 export type TSelectionDirection = "left" | "right";
 
-/** State shape for text selection */
+/** State shape for text selection @dontexport */
 export interface ISelectionState {
 	/** The fixed anchor point where the selection started */
 	anchor?: number;

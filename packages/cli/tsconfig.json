@@ -5,7 +5,7 @@
 		"outDir": "dist",
 		"baseUrl": "src",
 		"paths": {
-			"@/*": ["*", "*/index.ts", "*.ts"]
+			"@/*": ["*", "*/index.ts", "*.ts", "*.tsx"]
 		},
 		"stripInternal": true,
 		// "plugins": [

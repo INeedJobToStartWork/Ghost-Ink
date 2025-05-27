@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { textRender } from "@/functions";
 import { useSelect, useWriting } from "@/hooks";
 import { TUncontrolledComponent } from "@/types";

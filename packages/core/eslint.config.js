@@ -40,5 +40,6 @@ export default ineedj({
 	"@EslintReact/jsx-no-literals", // Temporary off cuz config error
 	"@EslintReactHooks/rules-of-hooks", // Temporary off cuz config error: Could not find plugin "@EslintReactHooks".
 	"@EslintReactHooks/exhaustive-deps", // Temporary off cuz config error:  Could not find plugin "@EslintReactHooks"
-	"@EslintReact/destructuring-assignment"
+	"@EslintReact/destructuring-assignment",
+	"new-cap"
 );

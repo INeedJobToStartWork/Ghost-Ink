@@ -1,8 +1,8 @@
+import React, { useEffect } from "react";
 import { textRender } from "@/functions";
 import { useSelect, useWriting } from "@/hooks";
 import { TUncontrolledComponent } from "@/types";
-import { Box, Text } from "ink";
-import { useEffect } from "react";
+import { Box, Text, useInput } from "ink";
 
 //----------------------
 // Types
@@ -10,8 +10,9 @@ import { useEffect } from "react";
 
 type TInputUncontrolledProps = {
 	readonly styles?: Parameters<typeof textRender>[0]["styles"];
-	readonly value: string;
+	// readonly value: string;
 	readonly initialValue?: string;
+	// eslint-disable-next-line no-unused-vars
 	readonly onSubmit?: (...args: any) => any;
 } & TUncontrolledComponent<string>;
 
@@ -48,13 +49,27 @@ export const InputUncontrolled = (props: TInputUncontrolledProps) => {
 	const [[state]] = writingReturn;
 	useSelect(writingReturn);
 
-	//----------------------
-	// Inputs
-	//----------------------
+	useEffect(() => {
+		props.onChange(props.initialValue);
+	}, []);
 
 	useEffect(() => {
 		props.onChange(state);
 	}, [state]);
+
+	//----------------------
+	// Inputs
+	//----------------------
+
+	useInput(input => {
+		// eslint-disable-next-line default-case, @EslintSonar/no-small-switch
+		switch (true) {
+			case input == "enter" && "onSubmit" in props && props.onSubmit != void 0: {
+				props.onSubmit();
+				break;
+			}
+		}
+	});
 
 	const renderedValue = textRender({
 		text: state,

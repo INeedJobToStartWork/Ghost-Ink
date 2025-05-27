@@ -23,7 +23,7 @@ program
 			// <TextInput value={state} onChange={setState} />;
 			// return <Text>HEJs</Text>;
 
-			return <TextInput value={state} onChange={setState} />;
+			return <TextInput onSubmit={() => console.log("AAAAAA")} value={state} onChange={setState} />;
 		};
 
 		render(<App />);

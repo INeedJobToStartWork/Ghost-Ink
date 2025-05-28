@@ -37,7 +37,7 @@ export const BasicConfig = (isDev: boolean) =>
 			outDir: isDev ? "lib" : "dist",
 			target: "es2020",
 			banner: addNodeRequireShim,
-			watch: isDev ? ["src"] : false
+			watch: isDev ? ["src", "node_modules"] : false
 		}
 	}) as const satisfies Record<string, Parameters<typeof defineConfig>[number]>;
 

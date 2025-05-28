@@ -31,7 +31,7 @@ type TMoveCursorAction<T extends number> = (TIsNegative<T> extends true ? Record
 	 * Delta value clamped between 0 and `max`.
 	 *
 	 * @example
-	 * ```
+	 * ```ts
 	 * setDispatch({type:"MOVE_CURSOR",max:state.length,payload:10}) // Cursor Position + 10
 	 * setDispatch({type:"MOVE_CURSOR",payload:-10}) // Cursor Position - 10
 	 * ```
@@ -87,7 +87,7 @@ export const CURSOR_ACTIONS_TYPES = {
  * Reducer function for managing a numeric cursor position.
  *
  * @example
- * ```
+ * ```ts
  * const [cursorState,cursorDispatch] = useReducer(cursorReducer,0)
  * ```
  *

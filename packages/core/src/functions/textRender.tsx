@@ -51,7 +51,7 @@ type TTextRenderProps<T extends ElementType = ElementType> = {
  * Useful for advanced text rendering scenarios like custom highlighting or cursor,
  *
  * @example
- * ```tsx
+ * ```ts
  * const text = "Hello world";
  * const styles = [
  *   { start: 0, end: 5, tag: 'strong', props: { className: 'highlight' } },

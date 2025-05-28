@@ -24,7 +24,7 @@ type TInputUncontrolledProps = {
  * Text Input
  *
  * @example
- * ```
+ * ```tsx
  * import { useState } from "react"
  * const [state, setState] = useState("");
  *

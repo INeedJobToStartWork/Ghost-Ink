@@ -6,7 +6,7 @@
  * Checks if a number is negative.
  *
  * @example
- * ```
+ * ```ts
  * type A = TIsNegative<-5>; // true
  * type B = TIsNegative<5>;  // false
  * ```

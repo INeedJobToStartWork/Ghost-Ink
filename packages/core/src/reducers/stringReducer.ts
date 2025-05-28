@@ -79,7 +79,7 @@ export type TStringReducerAction =
  * Reducer function for managing string content.
  *
  * @example
- * ```
+ * ```ts
  * const [text, dispatch] = useReducer(stringReducer, "");
  * dispatch({ type: "ADD", payload: { from: 0, value: "Hello" } });
  * dispatch({ type: "REMOVE", payload: { from: 2, to: 4 } });

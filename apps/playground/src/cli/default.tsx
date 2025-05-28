@@ -3,7 +3,6 @@ import { program } from "commander";
 
 import React, { useState } from "react";
 import { render } from "ink";
-// TODO: FIX ERROR - It's exported but ts do not see that
 import { TextInput } from "@packages/cli";
 //----------------------
 // Types

@@ -25,9 +25,11 @@ export const STRING_ERROR_LIST = {
 //----------------------
 
 /**
- * Action types for `stringReducer`:
+ * Action types for {@link stringReducer}:
  * - `ADD`: Add characters to string
  * - `REMOVE`: Remove characters from string
+ *
+ * @see {@link stringReducer}
  */
 export const STRING_ACTIONS_TYPES = {
 	/** Add characters to string */
@@ -86,7 +88,7 @@ export type TStringReducerAction =
  * ```
  *
  * @param state - Current string value
- * @param action -`STRING_ACTIONS_TYPES` Action object of type `TStringReducerAction`
+ * @param action - {@link STRING_ACTIONS_TYPES} Action object of type {@link TStringReducerAction}
  */
 export const stringReducer = (state: string, action: TStringReducerAction): string => {
 	switch (action.type) {

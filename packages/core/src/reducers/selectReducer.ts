@@ -19,11 +19,13 @@ export const MY_ERROR_LIST = {
 //----------------------
 
 /**
- * Action types for `selectedReducer`:
+ * Action types for {@link selectedReducer}:
  * - `START_SELECTION`: Start a new selection from a given position and direction
  * - `EXTEND_SELECTION`: Extend the current selection to a new position, optionally changing direction
  * - `SELECT_ALL`: Select all from position 0 to given end
  * - `CLEAR_SELECTION`: Clear the current selection
+ *
+ * @see {@link selectedReducer}
  */
 export const SELECT_ACTIONS_TYPES = {
 	/** Start a new selection from a given position and direction */
@@ -94,7 +96,7 @@ export type TSelectionReducerAction =
  * @description Tracks the anchor point (where selection started) and the active end point (where selection currently extends to).
  *
  * @param state - Current selection state
- * @param action - `SELECT_ACTIONS_TYPES` Action to update selection
+ * @param action - {@link SELECT_ACTIONS_TYPES} Action to update selection
  */
 export const selectReducer = (state: ISelectionState, action: TSelectionReducerAction): ISelectionState => {
 	switch (action.type) {

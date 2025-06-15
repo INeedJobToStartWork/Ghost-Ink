@@ -62,11 +62,13 @@ type TCursorReducerAction<T extends number> =
 //----------------------
 
 /**
- * Action types for `cursorReducer`:
+ * Action types for {@link cursorReducer}:
  * - `MOVE_CURSOR`: Move cursor by a delta (`payload`) clamped between 0 and `max` (if provided).
  * - `MOVE_TO_END`: Jump cursor to the end position (`payload`).
  * - `SET_POSITION`: Set cursor to a specific value.
  * - `MOVE_TO_START`: Reset cursor to 0.
+ *
+ * @see {@link cursorReducer}
  */
 export const CURSOR_ACTIONS_TYPES = {
 	/** Move cursor by a delta (`payload`) clamped between 0 and `max` (if provided). */
@@ -92,7 +94,7 @@ export const CURSOR_ACTIONS_TYPES = {
  * ```
  *
  * @param state - Current cursor position
- * @param action -`CURSOR_ACTIONS_TYPES` Action object of type `TCursorAction<T>`
+ * @param action - {@link CURSOR_ACTIONS_TYPES} Action object of type {@link TCursorReducerAction<T>}
  */
 export const cursorReducer = <T extends number>(state: number, action: TCursorReducerAction<T>): number => {
 	switch (action.type) {

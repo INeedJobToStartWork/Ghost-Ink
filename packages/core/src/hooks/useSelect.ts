@@ -32,6 +32,7 @@ export const useSelect = (writingState: ReturnType<typeof useWriting>) => {
 	const [[state, setStateDispatch], [cursorState, cursorStateDispatch]] = writingState;
 
 	useInput((input, key) => {
+		//TODO: To Switch
 		if (key.ctrl && input === "a") {
 			setSelectDispatch({ type: "SELECT_ALL", payload: state.length });
 			cursorStateDispatch({ type: "MOVE_TO_END", payload: state.length });

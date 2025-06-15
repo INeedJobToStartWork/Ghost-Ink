@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { ComponentProps, ElementType } from "react";
+import React, { ComponentProps, ElementType, PropsWithChildren } from "react";
 
 //----------------------
 // Types
@@ -39,7 +39,7 @@ type TTextStyles<T extends ElementType> = {
 type TTextRenderProps<T extends ElementType = ElementType> = {
 	text: string;
 	styles: TTextStyles<T>[];
-};
+} & PropsWithChildren;
 
 //----------------------
 // Functions
@@ -62,9 +62,9 @@ type TTextRenderProps<T extends ElementType = ElementType> = {
  * ```
  *
  */
-export function textRender<T extends ElementType>(props: TTextRenderProps<T>) {
-	const { text, styles } = props;
-	if (!text) return;
+export function textRender<T extends ElementType>(props: TTextRenderProps<T>): React.ReactNode[] | undefined {
+	const { text, styles, children } = props;
+	if (!text) return void 0;
 
 	const chars = Array.from(text, (char, index) => ({
 		index,
@@ -77,12 +77,12 @@ export function textRender<T extends ElementType>(props: TTextRenderProps<T>) {
 	for (const style of styles) {
 		const { start, end, tag: Tag, props, separated } = style;
 
-		if (separated && props?.children !== undefined) {
+		if (separated && children !== undefined) {
 			inserts.push({
 				index: start,
 				element: (
 					<Tag key={`insert-${start}-${Math.random()}`} {...(props as any)}>
-						{props.children}
+						{children}
 					</Tag>
 				)
 			});

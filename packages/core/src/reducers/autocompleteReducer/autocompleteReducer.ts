@@ -101,7 +101,7 @@ export const autocompleteReducer = <
 >(
 	state: {
 		/**
-		 * Current Input
+		 * Current input
 		 */
 		currentInput?: Parameters<GFilter>[0];
 

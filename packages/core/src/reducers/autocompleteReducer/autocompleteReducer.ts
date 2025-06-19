@@ -108,7 +108,7 @@ export const autocompleteReducer = <
 		/**
 		 * Current suggestions
 		 */
-		currentSuggestions?: Array<SuggestionTypeFromStoreSystem<GStoreType>>;
+		currentSuggestions: Array<SuggestionTypeFromStoreSystem<GStoreType>>;
 
 		/**
 		 * Function to filter current suggestions.
@@ -129,7 +129,7 @@ export const autocompleteReducer = <
 		 * Available suggestions stored by keys (e.g. alphabets)
 		 * Each key contains a list of suggestions that start with that letter
 		 */
-		suggestions: HasLoader<GStoreType> extends true
+		suggestions?: HasLoader<GStoreType> extends true
 			? SuggestionStoreTypeFromStoreSystem<GStoreType>
 			: Array<SuggestionTypeFromStoreSystem<GStoreType>>;
 	},

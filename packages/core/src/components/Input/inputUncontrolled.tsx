@@ -49,6 +49,11 @@ export const InputUncontrolled = (props: TInputUncontrolledProps) => {
 	const [[state]] = writingReturn;
 	useSelect(writingReturn);
 
+	// const [t1,t2] = useReducer<Parameters<typeof autocompleteReducer>[0],Parameters<typeof autocompleteReducer>[1]>(autocompleteReducer,{storeSystem:stringStoreSystem,
+	// 	filter:(input: string) => (suggestion: string) => suggestion.toLowerCase().startsWith(input.toLowerCase()),
+
+	// })
+
 	useEffect(() => {
 		props.onChange(props.initialValue);
 	}, []);

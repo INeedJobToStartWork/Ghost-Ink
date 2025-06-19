@@ -1,6 +1,6 @@
 import { useInput } from "ink";
 import { useReducer } from "react";
-import { stringReducer, cursorReducer } from "@/reducers";
+import { stringReducer, cursorReducer, CURSOR_ACTIONS_TYPES, STRING_ACTIONS_TYPES } from "@/reducers";
 
 //----------------------
 // Functions
@@ -26,30 +26,74 @@ export const useWriting = () => {
 		// eslint-disable-next-line default-case, @typescript-eslint/switch-exhaustiveness-check
 		switch (true) {
 			case key.leftArrow: {
-				setCursorDispatch({ type: "MOVE_CURSOR", payload: -1, max: 99 }); //TODO: FIX MAX SHOULDN'T BE REQUIRED
+				setCursorDispatch({
+					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
+					payload: -1,
+					max: state.length
+				});
 				break;
 			}
 			case key.rightArrow: {
-				setCursorDispatch({ type: "MOVE_CURSOR", payload: 1, max: state.length });
+				setCursorDispatch({
+					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
+					payload: 1,
+					max: state.length
+				});
 				break;
 			}
-			case key.backspace || key.delete: {
-				setValueDispatch({
-					type: "REMOVE",
-					payload: {
-						from: stateCursor - (key.backspace ? 1 : 0),
-						value: 1
-					}
-				});
-				if (key.backspace) setCursorDispatch({ type: "MOVE_CURSOR", payload: -1, max: 99 }); //TODO: FIX MAX SHOULDN'T BE REQUIRED
+			// case key.backspace || key.delete: {
+			// 	setValueDispatch({
+			// 		type: "REMOVE",
+			// 		payload: {
+			// 			from: stateCursor - (key.backspace ? 1 : 0),
+			// 			value: 1
+			// 		}
+			// 	});
+			// 	if (key.backspace) setCursorDispatch({ type: "MOVE_CURSOR", payload: -1, max: 99 }); //TODO: FIX MAX SHOULDN'T BE REQUIRED
+			// 	break;
+			// }
+			case key.backspace: {
+				if (stateCursor > 0) {
+					setValueDispatch({
+						type: STRING_ACTIONS_TYPES.REMOVE,
+						payload: {
+							from: stateCursor - 1,
+							value: 1
+						}
+					});
+					setCursorDispatch({
+						type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
+						payload: -1,
+						max: state.length
+					});
+				}
+				break;
+			}
+			case key.delete: {
+				if (stateCursor < state.length) {
+					setValueDispatch({
+						type: STRING_ACTIONS_TYPES.REMOVE,
+						payload: {
+							from: stateCursor,
+							value: 1
+						}
+					});
+				}
 				break;
 			}
 			case input && !key.ctrl && !key.meta: {
 				setValueDispatch({
-					type: "ADD",
-					payload: { value: input, from: stateCursor }
+					type: STRING_ACTIONS_TYPES.ADD,
+					payload: {
+						value: input,
+						from: stateCursor
+					}
 				});
-				setCursorDispatch({ type: "MOVE_CURSOR", payload: 1, max: state.length });
+				setCursorDispatch({
+					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
+					payload: 1,
+					max: state.length + 1
+				});
 				break;
 			}
 		}

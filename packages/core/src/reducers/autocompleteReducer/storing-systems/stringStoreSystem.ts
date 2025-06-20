@@ -23,7 +23,7 @@ type TStringSuggestion = string;
  */
 export const stringStoreSystem = storeSystemCreator<TStringStoreSystem, TStringSuggestion>({
 	add(suggestionsState, suggestions) {
-		let result = suggestionsState;
+		let result = suggestionsState ?? {};
 		for (const suggestion of suggestions) {
 			const key = getKeyFromValue(suggestion, v => v);
 			if (!result[key]) result[key] = new Set();
@@ -33,6 +33,7 @@ export const stringStoreSystem = storeSystemCreator<TStringStoreSystem, TStringS
 	},
 
 	loader(suggestions, inputValue: string) {
+		if (suggestions == void 0) return [];
 		// eslint-disable-next-line @EslintPrefArrayFunc/prefer-array-from
 		if (inputValue) return [...(suggestions[getKeyFromValue(inputValue, v => v)] ?? [])];
 		const result: TStringSuggestion[] = [];
@@ -43,7 +44,7 @@ export const stringStoreSystem = storeSystemCreator<TStringStoreSystem, TStringS
 	},
 
 	remove(suggestionsState, suggestions) {
-		let result = suggestionsState;
+		let result = suggestionsState ?? {};
 		for (const suggestion of suggestions) {
 			result[getKeyFromValue(suggestion, (v: string) => v)]?.delete(suggestion);
 		}

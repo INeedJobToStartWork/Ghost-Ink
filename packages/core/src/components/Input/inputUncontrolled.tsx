@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import { textRender } from "@/functions";
 import { useSelect, useWriting } from "@/hooks";
 import { TUncontrolledComponent } from "@/types";
 import { Box, Text, useInput } from "ink";
+import { autocompleteReducer, stringStoreSystem } from "@/reducers";
 
 //----------------------
 // Types
@@ -49,17 +50,20 @@ export const InputUncontrolled = (props: TInputUncontrolledProps) => {
 	const [[state]] = writingReturn;
 	useSelect(writingReturn);
 
-	// const [t1,t2] = useReducer<Parameters<typeof autocompleteReducer>[0],Parameters<typeof autocompleteReducer>[1]>(autocompleteReducer,{storeSystem:stringStoreSystem,
-	// 	filter:(input: string) => (suggestion: string) => suggestion.toLowerCase().startsWith(input.toLowerCase()),
-
-	// })
+	const [acState, acDispatch] = useReducer(autocompleteReducer, {
+		storeSystem: stringStoreSystem,
+		filter: (input: string) => (suggestion: string) => suggestion.toLowerCase().startsWith(input.toLowerCase()),
+		currentSuggestions: []
+	});
 
 	useEffect(() => {
 		props.onChange(props.initialValue);
+		acDispatch({ type: "ADD_SUGGESTION", payload: ["apple", "ananas", "anaconda"] });
 	}, []);
 
 	useEffect(() => {
 		props.onChange(state);
+		acDispatch({ type: "GET_SUGGESTIONS", payload: state });
 	}, [state]);
 
 	//----------------------
@@ -81,11 +85,12 @@ export const InputUncontrolled = (props: TInputUncontrolledProps) => {
 		styles: props.styles ?? []
 	});
 
+	// const suggestion = acState?.currentSuggestions?.[0] || "";
+	// console.log(acState);
 	return (
 		<Box>
 			<Text>{renderedValue}</Text>
-			{/* <Text> | Cursor:{cursorState.cursorPosition}</Text>
-			<Text> | Selection:{JSON.stringify(selectionState)}</Text> */}
+			<Text color={"gray"}>{(acState.currentSuggestions[0] ?? "").slice(state.length)}</Text>
 		</Box>
 	);
 };

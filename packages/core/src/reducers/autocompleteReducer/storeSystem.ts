@@ -10,7 +10,7 @@ import { autocompleteReducer } from "@/reducers";
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TStoreSystemLoader<GSuggestionsStoreType, GSuggestionType, GInputValue = any> = (
-	suggestions: GSuggestionsStoreType,
+	suggestions: GSuggestionsStoreType | undefined,
 	inputValue: GInputValue
 ) => GSuggestionType[];
 

@@ -22,8 +22,10 @@ program
 			const [state, setState] = useState("");
 			// <TextInput value={state} onChange={setState} />;
 			// return <Text>HEJs</Text>;
-
-			return <TextInput onSubmit={() => console.log("AAAAAA")} value={state} onChange={setState} />;
+			// console.log("AHAHHAHAHAHAH");
+			return (
+				<TextInput initAutocomplete={[""]} onSubmit={() => console.log("AAAAAA")} value={state} onChange={setState} />
+			);
 		};
 
 		render(<App />);

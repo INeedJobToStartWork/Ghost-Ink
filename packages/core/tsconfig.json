@@ -16,5 +16,6 @@
 		"preserveSymlinks": true,
 		"strict": true
 	},
+
 	"extends": "@ineedj/tsconfig/base.json"
 }

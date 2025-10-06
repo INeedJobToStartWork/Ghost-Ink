@@ -41,12 +41,6 @@
 		"tsup": "^8.3.5",
 		"typescript": "^5.6.3"
 	},
-	"publishConfig": {
-		"access": "public",
-		"directory": "dist",
-		"provenance": true,
-		"tag": "latest"
-	},
 	"dependencies": {
 		"@packages/cli": "workspace:*",
 		"commander": "^12.1.0",

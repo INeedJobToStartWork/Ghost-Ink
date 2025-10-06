@@ -73,7 +73,6 @@ importers:
       typescript:
         specifier: ^5.6.3
         version: 5.8.3
-    publishDirectory: dist
 
   packages/cli:
     dependencies:

@@ -30,15 +30,15 @@ export const BasicConfig = (isDev: boolean) =>
 			outDir: `${isDev ? "lib" : "dist"}/bin`,
 			target: "esnext",
 			banner: addNodeRequireShim,
-			watch: isDev ? ["src"] : false,
+			// watch: isDev ? ["src"] : false,
 			format: ["esm"]
 		},
 		PACKAGE: {
 			entry: ["src/index.ts"],
 			outDir: isDev ? "lib" : "dist",
 			target: "es2020",
-			banner: addNodeRequireShim,
-			watch: isDev ? ["src"] : false
+			banner: addNodeRequireShim
+			// watch: isDev ? ["src"] : false
 		}
 	}) as const satisfies Record<string, Parameters<typeof defineConfig>[number]>;
 

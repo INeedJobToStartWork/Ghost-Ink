@@ -11,10 +11,6 @@ export default defineConfig([
 		...prodConfigs.METAFILES_TO_COPY,
 		clean: true
 	},
-	// {
-	// 	...prodConfigs.CLI_APP,
-	// 	...PROD_OPTIMIZE
-	// },
 	{
 		...prodConfigs.PACKAGE,
 		...PROD_OPTIMIZE,

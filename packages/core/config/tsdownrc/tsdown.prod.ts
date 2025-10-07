@@ -1,5 +1,5 @@
-import { defineConfig } from "tsup";
-import { prodConfigs } from "./tsup.base";
+import { defineConfig } from "tsdown";
+import { prodConfigs } from "./tsdown.base";
 import { PROD_OPTIMIZE } from "./internals";
 
 //----------------------

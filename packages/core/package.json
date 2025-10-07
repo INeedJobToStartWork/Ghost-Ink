@@ -13,7 +13,6 @@
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"format": "pnpm prettier . --write && pnpm prettier . --check",
-		"clean": "",
 		"------------------------BUILDS-------------------------": "",
 		"build:dev": "pnpm tsdown --config ./config/tsdownrc/tsdown.dev.ts",
 		"build:prod": "pnpm tsdown --config ./config/tsdownrc/tsdown.prod.ts",
@@ -36,11 +35,14 @@
 		"@ineedj/prettierrc": "3.0.0",
 		"@ineedj/tsconfig": "^1.0.0",
 		"@testing-library/react": "^16.3.0",
+		"@testing-library/user-event": "^14.6.1",
 		"@types/ink": "^2.0.3",
 		"@types/node": "^22.15.3",
 		"@types/react": "^19.1.5",
+		"@types/react-dom": "^19.2.1",
 		"clean-package": "^2.2.0",
 		"eslint": "^8.57.1",
+		"ink-testing-library": "^4.0.0",
 		"jsdom": "^26.1.0",
 		"prettier": "^3.4.2",
 		"react-dom": "^18.3.1",
@@ -48,7 +50,8 @@
 		"rollup-plugin-copy": "^3.5.0",
 		"tsdown": "^0.15.6",
 		"typescript": "^5.6.3",
-		"vitest": "^3.1.4"
+		"vitest": "^3.1.4",
+		"@packages/test-utils": "workspace:*"
 	},
 	"publishConfig": {
 		"access": "public",

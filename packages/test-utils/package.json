@@ -1,0 +1,30 @@
+{
+	"name": "@packages/test-utils",
+	"description": "Utils for tests",
+	"version": "0.0.0",
+	"private": true,
+	"main": "./src/index.ts",
+	"scripts": {
+		"------------------------UTILS--------------------------": "",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"format": "pnpm prettier . --write && pnpm prettier . --check",
+		"------------------------TESTS--------------------------": "",
+		"test": "vitest"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@ineedj/eslintrc": "1.2.3",
+		"@ineedj/prettierrc": "3.0.0",
+		"@ineedj/tsconfig": "^1.0.0",
+		"eslint": "^8.57.1",
+		"ink": "^5.2.1",
+		"ink-testing-library": "^4.0.0",
+		"prettier": "^3.4.2",
+		"react": "^18",
+		"typescript": "^5.6.3",
+		"vitest": "^3.1.4"
+	}
+}

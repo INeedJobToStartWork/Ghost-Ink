@@ -13,7 +13,6 @@
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"format": "pnpm prettier . --write && pnpm prettier . --check",
-		"clean": "",
 		"------------------------BUILDS-------------------------": "",
 		"build:dev": "pnpm tsdown --config ./config/tsdownrc/tsdown.dev.ts",
 		"build:prod": "pnpm tsdown --config ./config/tsdownrc/tsdown.prod.ts",

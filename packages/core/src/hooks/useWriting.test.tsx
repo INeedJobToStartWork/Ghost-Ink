@@ -3,7 +3,7 @@ import { renderHook } from "@testing-library/react";
 import { render } from "ink-testing-library";
 import useWriting from "./useWriting";
 import { Text } from "ink";
-import { KEY_CODES, pressKeyCreator } from "@packages/test-utils";
+import { CODE_ESCAPES, pressKeyCreator } from "@packages/test-utils";
 
 describe("[HOOK] useWriting", () => {
 	test("initial state is empty string and cursor 0", () => {
@@ -37,14 +37,14 @@ describe("[HOOK] useWriting", () => {
 		await pressKey("l");
 		await pressKey("d");
 		await pressKey("!");
+		// Hello Wor
+		await pressKey(CODE_ESCAPES.Backspace);
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+		await pressKey(CODE_ESCAPES.Delete);
+		await pressKey(CODE_ESCAPES.Delete);
 
-		await pressKey(KEY_CODES.Backspace);
-		await pressKey(KEY_CODES.ArrowLeft);
-		await pressKey(KEY_CODES.ArrowLeft);
-		await pressKey(KEY_CODES.Delete);
-		await pressKey(KEY_CODES.Delete);
-
-		expect(lastFrame()).toBe("Hello Wod 9");
+		expect(lastFrame()).toBe("Hello Wor 9");
 	});
 	// test("initial state is empty string and cursor 0",()=>{})
 	// test("adds characters and moves cursor forward",()=>{})

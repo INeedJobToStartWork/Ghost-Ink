@@ -17,16 +17,16 @@
     "build:dev": {
       "cache": false,
       "dependsOn": ["^build:dev"],
-      "outputs": ["lib/**"]
+      "outputs": ["dist/**"]
     },
     "build:prod": {
       "cache": true,
-      "dependsOn": ["^build:prod"],
+      "dependsOn": ["^build:prod", "^format", "^lint:fix", "^lint"],
       "outputs": ["dist/**"]
     },
     "build:npm": {
       "cache": true,
-      "dependsOn": ["^build:prod"],
+      "dependsOn": ["^build:prod", "^format", "^lint"],
       "outputs": ["dist/**"],
       "inputs": ["*", "!dist"]
     },
@@ -49,12 +49,6 @@
     "dev": {
       "cache": false,
       "persistent": true
-    },
-    "commands:dev": {
-      "outputs": []
-    },
-    "commands:prod": {
-      "outputs": []
     }
   }
 }

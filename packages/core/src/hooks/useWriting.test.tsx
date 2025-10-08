@@ -5,6 +5,10 @@ import useWriting from "./useWriting";
 import { Text } from "ink";
 import { CODE_ESCAPES, pressKeyCreator } from "@packages/test-utils";
 
+//----------------------
+// Tests
+//----------------------
+
 describe("[HOOK] useWriting", () => {
 	test("initial state is empty string and cursor 0", () => {
 		const { result } = renderHook(() => useWriting());
@@ -46,10 +50,9 @@ describe("[HOOK] useWriting", () => {
 
 		expect(lastFrame()).toBe("Hello Wor 9");
 	});
-	// test("initial state is empty string and cursor 0",()=>{})
-	// test("adds characters and moves cursor forward",()=>{})
-	// test("moves cursor left and right",()=>{})
-	// test("inserts character in the middle",()=>{})
-	// test("backspace deletes char before cursor and moves cursor back",()=>{})
-	// test("delete key removes char at cursor but doesn't move cursor",()=>{})
+	test.skip("adds characters and moves cursor forward", () => {});
+	test.skip("moves cursor left and right", () => {});
+	test.skip("inserts character in the middle", () => {});
+	test.skip("backspace deletes char before cursor and moves cursor back", () => {});
+	test.skip("delete key removes char at cursor but doesn't move cursor", () => {});
 });

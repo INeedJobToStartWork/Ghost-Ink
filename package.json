@@ -36,6 +36,7 @@
     "npm:publish": "changeset publish",
     "------------------------TESTS--------------------------": "",
     "test": "turbo test",
+    "test:coverage": "turbo test:coverage",
     "bench": "turbo bench"
   },
   "devDependencies": {

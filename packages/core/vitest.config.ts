@@ -1,13 +1,4 @@
-import { resolve } from "node:path";
-import { defineConfig } from "vitest/config";
+import vitestConfig from "@configs/vitest";
 
-export default defineConfig({
-	resolve: {
-		alias: {
-			"@": resolve(import.meta.dirname, "src/")
-		}
-	},
-	test: {
-		environment: "jsdom"
-	}
-});
+/** @ts-expect-error Because it expect not function */
+export default vitestConfig(import.meta.dirname);

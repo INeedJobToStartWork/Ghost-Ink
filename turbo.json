@@ -46,6 +46,7 @@
     "npm:prepack": {},
     "npm:postpack": {},
     "prepublishOnly": {},
+    "test:coverage": {},
     "dev": {
       "cache": false,
       "persistent": true

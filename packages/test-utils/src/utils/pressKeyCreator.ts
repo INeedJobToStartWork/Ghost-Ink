@@ -21,11 +21,13 @@ import { render } from "ink-testing-library";
  * @param stdin - The stdin to press keys on (from ink `render`)
  * @internal @dontexport
  */
-export const pressKeyCreator = (stdin: ReturnType<typeof render>["stdin"]) => async (text: string) => {
-	await new Promise(resolve => {
-		setTimeout(resolve, 10);
-	});
-	await stdin.write(text);
-};
+export const pressKeyCreator =
+	(stdin: ReturnType<typeof render>["stdin"]) =>
+	async (text: string): Promise<void> => {
+		await stdin.write(text);
+		await new Promise(resolve => {
+			setTimeout(resolve, 10);
+		});
+	};
 
 export default pressKeyCreator;

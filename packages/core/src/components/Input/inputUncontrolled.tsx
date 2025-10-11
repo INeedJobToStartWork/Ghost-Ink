@@ -74,7 +74,7 @@ export const InputUncontrolled = (props: TInputUncontrolledProps) => {
 
 	useEffect(() => {
 		props.onChange(props.initialValue);
-		acDispatch({ type: "ADD_SUGGESTION", payload: ["apple", "ananas", "anaconda"] });
+		acDispatch({ type: "ADD_SUGGESTION", payload: props.initAutocomplete });
 	}, []);
 
 	useEffect(() => {

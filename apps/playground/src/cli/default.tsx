@@ -19,13 +19,7 @@ program
 	.action(() => {
 		console.log("HEJ");
 		const App = () => {
-			const [state, setState] = useState("");
-			// <TextInput value={state} onChange={setState} />;
-			// return <Text>HEJs</Text>;
-			// console.log("AHAHHAHAHAHAH");
-			return (
-				<TextInput initAutocomplete={[""]} onSubmit={() => console.log("AAAAAA")} value={state} onChange={setState} />
-			);
+			return <TextInput initAutocomplete={[""]} />;
 		};
 
 		render(<App />);

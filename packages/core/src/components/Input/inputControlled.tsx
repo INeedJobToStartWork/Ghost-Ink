@@ -7,7 +7,7 @@ import { TUncontrolledComponent } from "@/types";
 //----------------------
 
 type TInputControlledProps = Omit<Parameters<typeof InputUncontrolled>[0], keyof TUncontrolledComponent<string>> & {
-	value: string;
+	// value: string;
 };
 
 //----------------------

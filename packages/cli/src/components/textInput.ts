@@ -2,7 +2,7 @@
 // Functions
 //----------------------
 
-import { InputUncontrolled } from "@packages/core";
+import { InputControlled } from "@packages/core";
 
 /**
  * My function description.
@@ -13,6 +13,6 @@ import { InputUncontrolled } from "@packages/core";
  * const results = myFunction()
  */
 
-export const TextInput = InputUncontrolled;
+export const TextInput = InputControlled;
 
 export default TextInput;

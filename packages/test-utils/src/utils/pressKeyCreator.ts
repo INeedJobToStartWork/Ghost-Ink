@@ -24,6 +24,9 @@ import { render } from "ink-testing-library";
 export const pressKeyCreator =
 	(stdin: ReturnType<typeof render>["stdin"]) =>
 	async (text: string): Promise<void> => {
+		await new Promise(resolve => {
+			setTimeout(resolve, 10);
+		});
 		await stdin.write(text);
 		await new Promise(resolve => {
 			setTimeout(resolve, 10);

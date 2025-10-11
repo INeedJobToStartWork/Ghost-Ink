@@ -1,7 +1,9 @@
+/* eslint-disable @EslintSonar/no-identical-functions */
 import { describe, expect, test } from "vitest";
 import { renderHook } from "@testing-library/react";
 import { render } from "ink-testing-library";
 import useWriting from "./useWriting";
+
 import { Text } from "ink";
 import { CODE_ESCAPES, pressKeyCreator } from "@packages/test-utils";
 
@@ -41,7 +43,7 @@ describe("[HOOK] useWriting", () => {
 		await pressKey("l");
 		await pressKey("d");
 		await pressKey("!");
-		// Hello Wor
+
 		await pressKey(CODE_ESCAPES.Backspace);
 		await pressKey(CODE_ESCAPES.ArrowLeft);
 		await pressKey(CODE_ESCAPES.ArrowLeft);
@@ -50,9 +52,103 @@ describe("[HOOK] useWriting", () => {
 
 		expect(lastFrame()).toBe("Hello Wor 9");
 	});
-	test.skip("adds characters and moves cursor forward", () => {});
-	test.skip("moves cursor left and right", () => {});
-	test.skip("inserts character in the middle", () => {});
-	test.skip("backspace deletes char before cursor and moves cursor back", () => {});
-	test.skip("delete key removes char at cursor but doesn't move cursor", () => {});
+
+	test("moves cursor max left", async () => {
+		const TestInput = () => {
+			const [, [cursorState]] = useWriting();
+			return <Text>{cursorState}</Text>;
+		};
+
+		const { lastFrame, stdin } = render(<TestInput />);
+		const pressKey = pressKeyCreator(stdin);
+
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+
+		expect(lastFrame()).toBe("0");
+	});
+	test("moves cursor right", async () => {
+		const TestInput = () => {
+			const [, [cursorState]] = useWriting();
+			return <Text>{cursorState}</Text>;
+		};
+
+		const { lastFrame, stdin } = render(<TestInput />);
+		const pressKey = pressKeyCreator(stdin);
+
+		await pressKey(CODE_ESCAPES.ArrowRight);
+		await pressKey(CODE_ESCAPES.ArrowRight);
+		await pressKey(CODE_ESCAPES.ArrowRight);
+		await pressKey(CODE_ESCAPES.ArrowRight);
+		await pressKey(CODE_ESCAPES.ArrowRight);
+
+		expect(lastFrame()).toBe("0");
+	});
+	test("moves cursor left and right", async () => {
+		const TestInput = () => {
+			const [, [cursorState]] = useWriting();
+			return <Text>{cursorState}</Text>;
+		};
+
+		const { lastFrame, stdin } = render(<TestInput />);
+		const pressKey = pressKeyCreator(stdin);
+
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+		await pressKey(CODE_ESCAPES.ArrowRight);
+		await pressKey(CODE_ESCAPES.ArrowRight);
+		await pressKey(CODE_ESCAPES.ArrowRight);
+
+		expect(lastFrame()).toBe("0");
+	});
+	test("inserts character in the middle", async () => {
+		const TestInput = () => {
+			const [[textState], [cursorState]] = useWriting();
+			return (
+				<Text>
+					{textState} {cursorState}
+				</Text>
+			);
+		};
+
+		const { lastFrame, stdin } = render(<TestInput />);
+		const pressKey = pressKeyCreator(stdin);
+
+		await pressKey("H");
+		await pressKey("E");
+		await pressKey("L");
+		await pressKey("L");
+		await pressKey("O");
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+		await pressKey(CODE_ESCAPES.ArrowLeft);
+		await pressKey("Y");
+		await pressKey("O");
+
+		expect(lastFrame()).toBe("HELYOLO 5");
+	});
+	test("backspace deletes char before cursor and moves cursor back", async () => {
+		const TestInput = () => {
+			// const [[textState], [cursorState]] = useWriting();
+			const [[textState], [cursorState]] = useWriting();
+			return (
+				<Text>
+					{textState} {cursorState}
+				</Text>
+			);
+		};
+
+		const { lastFrame, stdin } = render(<TestInput />);
+		const pressKey = pressKeyCreator(stdin);
+
+		await pressKey("a");
+		await pressKey("s");
+		await pressKey("d");
+		await pressKey(CODE_ESCAPES.Backspace);
+		await pressKey(CODE_ESCAPES.Backspace);
+
+		expect(lastFrame()).toBe("a 1");
+	});
 });

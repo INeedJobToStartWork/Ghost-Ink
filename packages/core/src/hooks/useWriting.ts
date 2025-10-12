@@ -52,7 +52,9 @@ export const useWriting = () => {
 			// 	if (key.backspace) setCursorDispatch({ type: "MOVE_CURSOR", payload: -1, max: 99 }); //TODO: FIX MAX SHOULDN'T BE REQUIRED
 			// 	break;
 			// }
-			case key.backspace: {
+			// TODO: Change it on backspace when ink will support DECBKM
+
+			case key.backspace || key.delete: {
 				if (stateCursor > 0) {
 					setValueDispatch({
 						type: STRING_ACTIONS_TYPES.REMOVE,
@@ -69,18 +71,18 @@ export const useWriting = () => {
 				}
 				break;
 			}
-			case key.delete: {
-				if (stateCursor < state.length) {
-					setValueDispatch({
-						type: STRING_ACTIONS_TYPES.REMOVE,
-						payload: {
-							from: stateCursor,
-							value: 1
-						}
-					});
-				}
-				break;
-			}
+			// case key.delete: {
+			// 	if (stateCursor < state.length) {
+			// 		setValueDispatch({
+			// 			type: STRING_ACTIONS_TYPES.REMOVE,
+			// 			payload: {
+			// 				from: stateCursor,
+			// 				value: 1
+			// 			}
+			// 		});
+			// 	}
+			// 	break;
+			// }
 			case input && !key.ctrl && !key.meta: {
 				setValueDispatch({
 					type: STRING_ACTIONS_TYPES.ADD,

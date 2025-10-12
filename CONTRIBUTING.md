@@ -4,4 +4,11 @@
 
 ## Local contributing rules
 
-_empty_
+### Ink Version
+
+Currently we are using Ink version `5.x` and we will not update it to `6.x` or higher until `ink-testing-library` will support it.
+
+### Why There is no different actions between Backspace and Delete?
+
+Ink version `5.x` and current version `6.x` (state at 12.10.2025) do not support `DECBKM`.
+It makes much harder to implement `Backspace` and `Delete` keys and use as we expect on Windows Terminals and others which support `DKB`.

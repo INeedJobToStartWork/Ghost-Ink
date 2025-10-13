@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { render } from "ink-testing-library";
-import { InputControlled } from "./InputControlled";
+import { InputControlled } from "./inputControlled";
 import { CODE_ESCAPES, pressKeyCreator } from "@packages/test-utils";
 
 //----------------------

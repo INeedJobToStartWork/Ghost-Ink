@@ -24,12 +24,13 @@
 		"npm:prepack": "clean-package",
 		"npm:postpack": "clean-package restore",
 		"------------------------TESTS--------------------------": "",
-		"test": "vitest",
-		"test:coverage": "vitest --coverage",
+		"test": "NODE_OPTIONS=--import=tsx vitest",
+		"test:coverage": "NODE_OPTIONS=--import=tsx vitest --coverage",
 		"------------------------NPM--------------------------": "",
 		"prepublishOnly": "pnpm build:npm"
 	},
 	"devDependencies": {
+		"@configs/vitest": "workspace:*",
 		"@ineedj/eslintrc": "1.2.3",
 		"@ineedj/prettierrc": "3.0.0",
 		"@ineedj/tsconfig": "^1.0.0",
@@ -41,9 +42,9 @@
 		"prettier": "^3.4.2",
 		"rollup-plugin-copy": "^3.5.0",
 		"tsdown": "^0.15.6",
+		"tsx": "^4.20.6",
 		"typescript": "^5.6.3",
-		"vitest": "^3.2.4",
-		"@configs/vitest": "workspace:*"
+		"vitest": "^3.2.4"
 	},
 	"dependencies": {
 		"@packages/cli": "workspace:*",

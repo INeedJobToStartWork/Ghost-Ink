@@ -6,7 +6,7 @@ import { defineConfig } from "vitest/config";
  * @param {string} path - The path to the project root directory. (`import.meta.dirname`)
  * @internal
  */
-export default (path) =>
+export default (path:any) =>
   defineConfig({
     resolve: {
       alias: {
@@ -14,6 +14,7 @@ export default (path) =>
       },
     },
     test: {
+      fileParallelism:true,
       environment: "jsdom",
       // exclude: ["**/node_modules/**", "**/dist/**", "**/index.ts"]
       coverage: {

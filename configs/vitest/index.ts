@@ -16,6 +16,9 @@ export default (path:any) =>
     test: {
       fileParallelism:true,
       environment: "jsdom",
+      sequence:{
+        concurrent: true
+      },
       // exclude: ["**/node_modules/**", "**/dist/**", "**/index.ts"]
       coverage: {
         provider: "v8", // or 'istanbul'

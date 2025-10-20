@@ -102,6 +102,8 @@ export const stringReducer = (state: string, action: TStringReducerAction): stri
 
 			if ("from" in action.payload && "to" in action.payload) {
 				const { from, to } = action.payload;
+				if (from == to) return state;
+				console.log("AHA");
 				return state.slice(0, from) + state.slice(to);
 			}
 

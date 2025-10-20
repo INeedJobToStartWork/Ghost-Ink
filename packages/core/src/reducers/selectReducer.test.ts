@@ -8,6 +8,14 @@ import { myError } from "oh-my-error";
 
 describe("[FUNCTION] selectReducer", () => {
 	describe("[PASS]", () => {
+		test("Empty string, selecting Left", () => {
+			const action: TSelectionReducerAction = {
+				type: SELECT_ACTIONS_TYPES.START_SELECTION,
+				payload: { position: 0, direction: "left" }
+			};
+			const result = selectReducer({}, action);
+			expect(result).toEqual({ from: 0, to: 0, max: 0, anchor: 0, direction: "right" });
+		});
 		test("START_SELECTION sets initial selection with given position and direction", () => {
 			const action: TSelectionReducerAction = {
 				type: SELECT_ACTIONS_TYPES.START_SELECTION,

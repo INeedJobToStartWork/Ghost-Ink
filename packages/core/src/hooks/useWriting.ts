@@ -1,6 +1,14 @@
-import { useInput } from "ink";
 import { useReducer } from "react";
 import { stringReducer, cursorReducer, CURSOR_ACTIONS_TYPES, STRING_ACTIONS_TYPES } from "@/reducers";
+import useEffectInput from "./useEffectInput";
+
+//----------------------
+// CONSTANTS
+//----------------------
+
+//----------------------
+// Types
+//----------------------
 
 //----------------------
 // Functions
@@ -22,68 +30,48 @@ export const useWriting = () => {
 	const [state, setValueDispatch] = useReducer(stringReducer, "");
 	const [stateCursor, setCursorDispatch] = useReducer(cursorReducer, 0);
 
-	useInput((input, key) => {
-		// eslint-disable-next-line default-case, @typescript-eslint/switch-exhaustiveness-check
-		switch (true) {
-			case key.leftArrow: {
+	useEffectInput({
+		MOVE_CURSOR_LEFT: {
+			when: (_, key) => key.leftArrow,
+			do: () => {
 				setCursorDispatch({
 					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
 					payload: -1,
 					max: state.length
 				});
-				break;
 			}
-			case key.rightArrow: {
+		},
+		MOVE_CURSOR_RIGHT: {
+			when: (_, key) => key.rightArrow,
+			do: () => {
 				setCursorDispatch({
 					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
 					payload: 1,
 					max: state.length
 				});
-				break;
 			}
-			// case key.backspace || key.delete: {
-			// 	setValueDispatch({
-			// 		type: "REMOVE",
-			// 		payload: {
-			// 			from: stateCursor - (key.backspace ? 1 : 0),
-			// 			value: 1
-			// 		}
-			// 	});
-			// 	if (key.backspace) setCursorDispatch({ type: "MOVE_CURSOR", payload: -1, max: 99 }); //TODO: FIX MAX SHOULDN'T BE REQUIRED
-			// 	break;
-			// }
-			// TODO: Change it on backspace when ink will support DECBKM
-
-			case key.backspace || key.delete: {
-				if (stateCursor > 0) {
-					setValueDispatch({
-						type: STRING_ACTIONS_TYPES.REMOVE,
-						payload: {
-							from: stateCursor - 1,
-							value: 1
-						}
-					});
-					setCursorDispatch({
-						type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
-						payload: -1,
-						max: state.length
-					});
-				}
-				break;
+		},
+		DELETE_CHAR_LEFT: {
+			when: (_, key) => key.backspace || key.delete,
+			do: () => {
+				if (stateCursor <= 0) return;
+				setValueDispatch({
+					type: STRING_ACTIONS_TYPES.REMOVE,
+					payload: {
+						from: stateCursor - 1,
+						value: 1
+					}
+				});
+				setCursorDispatch({
+					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
+					payload: -1,
+					max: state.length
+				});
 			}
-			// case key.delete: {
-			// 	if (stateCursor < state.length) {
-			// 		setValueDispatch({
-			// 			type: STRING_ACTIONS_TYPES.REMOVE,
-			// 			payload: {
-			// 				from: stateCursor,
-			// 				value: 1
-			// 			}
-			// 		});
-			// 	}
-			// 	break;
-			// }
-			case input && !key.ctrl && !key.meta: {
+		},
+		ADD_CHAR_RIGHT: {
+			when: (input, key) => Boolean(input) && !key.ctrl && !key.meta,
+			do: input => {
 				setValueDispatch({
 					type: STRING_ACTIONS_TYPES.ADD,
 					payload: {
@@ -96,7 +84,6 @@ export const useWriting = () => {
 					payload: 1,
 					max: state.length + 1
 				});
-				break;
 			}
 		}
 	});

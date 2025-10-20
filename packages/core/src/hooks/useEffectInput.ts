@@ -6,10 +6,13 @@ import { useEffect, useState } from "react";
 // Types
 //----------------------
 
-type InputHandler = {
-	do: () => void;
-	when: (input: string, key: Key) => boolean;
-};
+type InputHandler = Record<
+	string,
+	{
+		do: (input: string, key: Key) => void;
+		when: (input: string, key: Key) => boolean;
+	}
+>;
 
 //----------------------
 // Hook
@@ -36,19 +39,21 @@ type InputHandler = {
  * @see {@link useInput}
  *
  */
-const useEffectInput = (handlers: InputHandler[]): void => {
-	const [activeHandler, setActiveHandler] = useState<number | undefined>(void 0);
+export const useEffectInput = (handlers: InputHandler): void => {
+	const [activeHandler, setActiveHandler] = useState<
+		{ index: string; useInput: [input: string, key: Key] } | undefined
+	>(void 0);
 
 	useEffect(() => {
 		if (activeHandler == void 0) return;
-		handlers[activeHandler].do();
+		handlers[activeHandler.index].do(activeHandler.useInput[0], activeHandler.useInput[1]);
 		setActiveHandler(void 0);
 	}, [activeHandler]);
 
 	useInput((input, key) => {
-		for (const [index, handler] of handlers.entries()) {
+		for (const [index, handler] of Object.entries(handlers)) {
 			if (handler.when(input, key)) {
-				setActiveHandler(index);
+				setActiveHandler({ index: index, useInput: [input, key] });
 				break;
 			}
 		}

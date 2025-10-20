@@ -17,7 +17,6 @@ program
 	.addOption(optionConfig)
 	.addOption(optionDebugger)
 	.action(() => {
-		console.log("HEJ");
 		const App = () => {
 			return <TextInput initAutocomplete={[""]} />;
 		};

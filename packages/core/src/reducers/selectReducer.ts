@@ -1,3 +1,6 @@
+/* eslint-disable complexity */
+/* eslint-disable no-fallthrough */
+import { clamp } from "@/utils";
 import { myError } from "oh-my-error";
 import type { IMyError, TMyErrorList } from "oh-my-error";
 
@@ -35,7 +38,9 @@ export const SELECT_ACTIONS_TYPES = {
 	/** Select all from position 0 to given end */
 	SELECT_ALL: "SELECT_ALL",
 	/** Clear the current selection */
-	CLEAR_SELECTION: "CLEAR_SELECTION"
+	CLEAR_SELECTION: "CLEAR_SELECTION",
+	/** Set the maximum position for selection (e.g., length of text) */
+	SET_MAX: "SET_MAX"
 } as const;
 
 //----------------------
@@ -53,12 +58,19 @@ export interface ISelectionState {
 	direction?: TSelectionDirection;
 	/** Selection start position (inclusive) */
 	from?: number;
+	/** Maximum position for selection (e.g., length of text) */
+	max?: number;
 	/** Selection end position (exclusive) */
 	to?: number;
 }
 
 /** @dontexport */
 export type TSelectionReducerAction =
+	| {
+			/** Maximum position for selection (e.g., length of text) */
+			payload: number;
+			type: typeof SELECT_ACTIONS_TYPES.SET_MAX;
+	  }
 	| {
 			/** Position marking the end of selection (typically length of text) */
 			payload: number;
@@ -77,6 +89,11 @@ export type TSelectionReducerAction =
 			payload: {
 				/** Optional direction to extend selection; defaults to current or "right" */
 				direction?: TSelectionDirection;
+				/** Optional last position for selection (e.g., cursor position before move) */
+				lastPosition?: number;
+				/** Optional maximum position for selection (e.g., length of text) */
+				max?: number;
+
 				/** New position to extend selection to */
 				position: number;
 			};
@@ -100,30 +117,38 @@ export type TSelectionReducerAction =
  */
 export const selectReducer = (state: ISelectionState, action: TSelectionReducerAction): ISelectionState => {
 	switch (action.type) {
+		case SELECT_ACTIONS_TYPES.SET_MAX: {
+			return { ...state, max: action.payload };
+		}
 		case SELECT_ACTIONS_TYPES.START_SELECTION: {
-			const { position, direction } = action.payload;
 			return {
-				from: position,
-				to: position,
-				anchor: position,
-				direction
+				from: 0,
+				to: 0,
+				anchor: 0,
+				max: 0,
+				direction: "right"
 			};
 		}
 		case SELECT_ACTIONS_TYPES.EXTEND_SELECTION: {
-			const { position, direction = state.direction || "right" } = action.payload;
-
-			if (state.from === void 0 || state.to === void 0) {
+			const { position, direction, lastPosition, max = state.max ?? 0 } = action.payload;
+			if (state.from === void 0 && state.to === void 0) {
+				if ((direction == "right" && position == lastPosition) || (direction == "left" && position == lastPosition)) {
+					return state;
+				}
 				return {
-					from: position,
-					to: position,
-					anchor: position,
-					direction
+					...state,
+					from: clamp(direction == "right" ? position - 1 : position, 0, max),
+					to: clamp(direction == "right" ? position : position + 1, 0, max),
+					anchor: clamp(direction == "right" ? position - 1 : position + 1, 0, max),
+					max: max,
+					direction: direction
 				};
 			}
 
 			if (state.anchor !== void 0) {
 				if (position >= state.anchor) {
 					return {
+						...state,
 						from: state.anchor,
 						to: position,
 						anchor: state.anchor,
@@ -131,6 +156,7 @@ export const selectReducer = (state: ISelectionState, action: TSelectionReducerA
 					};
 				}
 				return {
+					...state,
 					from: position,
 					to: state.anchor,
 					anchor: state.anchor,
@@ -138,9 +164,10 @@ export const selectReducer = (state: ISelectionState, action: TSelectionReducerA
 				};
 			}
 
-			// Legacy behavior without anchor point
+			// // Legacy behavior without anchor point
 			if (position < state.from) {
 				return {
+					...state,
 					from: position,
 					to: state.to,
 					direction: "left"
@@ -148,6 +175,7 @@ export const selectReducer = (state: ISelectionState, action: TSelectionReducerA
 			}
 
 			return {
+				...state,
 				from: state.from,
 				to: position,
 				direction: "right"

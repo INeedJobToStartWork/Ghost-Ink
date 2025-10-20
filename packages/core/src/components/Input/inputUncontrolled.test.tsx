@@ -9,7 +9,7 @@ import { useState } from "react";
 //----------------------
 
 describe("[Component] inputUncontrolled", () => {
-	test.only("Add few letter", async () => {
+	test("Add few letter", async () => {
 		const TestInput = () => {
 			const [state, setState] = useState("");
 			return <InputUncontrolled initAutocomplete={[]} onChange={setState} value={state} />;

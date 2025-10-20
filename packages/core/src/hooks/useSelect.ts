@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { selectReducer } from "@/reducers";
-import { useInput } from "ink";
+import { useEffectInput } from "@/hooks";
 import type { useWriting } from "@/hooks";
 
 //----------------------
@@ -28,22 +28,64 @@ import type { useWriting } from "@/hooks";
  *
  */
 export const useSelect = (writingState: ReturnType<typeof useWriting>) => {
-	const [selection, setSelectDispatch] = useReducer(selectReducer, {});
+	const [selection, setSelectDispatch] = useReducer(selectReducer, {
+		from: 0,
+		to: 0,
+		anchor: 0,
+		max: 0,
+		direction: "right"
+	});
 	const [[state, setStateDispatch], [cursorState, cursorStateDispatch]] = writingState;
+	const [lastPosition, setLastPosition] = useState<number | undefined>(cursorState);
 
-	useInput((input, key) => {
-		//TODO: To Switch
-		if (key.ctrl && input === "a") {
-			setSelectDispatch({ type: "SELECT_ALL", payload: state.length });
-			cursorStateDispatch({ type: "MOVE_TO_END", payload: state.length });
-		} else if (key.shift && (key.leftArrow || key.rightArrow)) {
-			setSelectDispatch({ type: "EXTEND_SELECTION", payload: { position: cursorState } });
-		} else if (key.leftArrow || key.rightArrow || key.downArrow || key.upArrow) {
-			setSelectDispatch({ type: "CLEAR_SELECTION" });
-		} else if (selection.from != void 0 && selection.to != void 0) {
-			setStateDispatch({ type: "REMOVE", payload: { from: selection.from, to: selection.to } });
-			setStateDispatch({ type: "ADD", payload: { value: input, from: cursorState } });
-			setSelectDispatch({ type: "CLEAR_SELECTION" });
+	useEffect(() => {
+		setSelectDispatch({ type: "SET_MAX", payload: state.length });
+	}, [state]);
+
+	useEffectInput({
+		SELECTING_ALL: {
+			when: (input, key) => key.ctrl && input === "a",
+			do: () => {
+				setSelectDispatch({ type: "SELECT_ALL", payload: state.length });
+				cursorStateDispatch({ type: "MOVE_TO_END", payload: state.length });
+			}
+		},
+		EXTENDING_SELECTION: {
+			when: (input, key) => key.shift && (key.leftArrow || key.rightArrow),
+			do: (_, key) => {
+				setSelectDispatch({
+					type: "EXTEND_SELECTION",
+					payload: {
+						position: cursorState,
+						lastPosition: lastPosition,
+						max: state.length,
+						direction: key.leftArrow ? "left" : "right"
+					}
+				});
+			}
+		},
+		REMOVING_SELECTED_TEXT: {
+			when: (input, key) => key.delete || key.backspace,
+			do: () => {
+				setStateDispatch({ type: "REMOVE", payload: { from: selection.from, to: selection.to } });
+				setSelectDispatch({ type: "CLEAR_SELECTION" });
+			}
+		},
+		CLEAR_OR_REPLACE_SELECTION: {
+			when: () => true,
+			do: (input, key) => {
+				//TODO: That should be in useEffect but useEffect break somewhere order of generation, for sure it will break something
+				if (lastPosition != cursorState) setLastPosition(cursorState);
+				if (
+					selection.from != 0 &&
+					selection.from != undefined &&
+					!(key.leftArrow || key.rightArrow || key.upArrow || key.downArrow)
+				) {
+					// setStateDispatch({ type: "REMOVE", payload: { from: selection.from, to: selection.to } });
+					// setStateDispatch({ type: "ADD", payload: { value: input, from: cursorState } });
+				}
+				setSelectDispatch({ type: "CLEAR_SELECTION" });
+			}
 		}
 	});
 

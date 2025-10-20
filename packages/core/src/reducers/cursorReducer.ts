@@ -1,4 +1,5 @@
 import type { TIsNegative } from "@/types";
+import { clamp } from "@/utils";
 import { myError } from "oh-my-error";
 import type { IMyError, TMyErrorList } from "oh-my-error";
 
@@ -109,8 +110,8 @@ export const cursorReducer = <T extends number>(state: number, action: TCursorRe
 				});
 			}
 			const finalValue = state + action.payload;
-			const clampedValue = "max" in action ? Math.min(finalValue, action.max) : finalValue;
-			return Math.max(0, clampedValue);
+
+			return clamp(finalValue, 0, "max" in action ? action.max : state);
 		}
 		case CURSOR_ACTIONS_TYPES.MOVE_TO_START: {
 			return 0;

@@ -59,7 +59,7 @@ type TInputUncontrolledProps = {
 export const InputUncontrolled = (props: TInputUncontrolledProps) => {
 	const writingReturn = useWriting();
 	const [[state]] = writingReturn;
-	useSelect(writingReturn);
+	const [selection, selectionDispatch] = useSelect(writingReturn);
 
 	const [acState, acDispatch] = props.acReducer ?? useReducer(autocompleteReducer, AUTOCOMPLETE_SETTINGS.inputText);
 	// const [acState, acDispatch] = useReducer(autocompleteReducer, AUTOCOMPLETE_SETTINGS.inputText);
@@ -104,7 +104,7 @@ export const InputUncontrolled = (props: TInputUncontrolledProps) => {
 
 	const renderedValue = textRender({
 		text: state,
-		styles: props.styles ?? []
+		styles: props.styles ?? [{ start: selection.from, end: selection.to, tag: Text, props: { color: "blue" } }]
 	});
 
 	return (

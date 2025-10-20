@@ -59,7 +59,7 @@ type TInputUncontrolledProps = {
 export const InputUncontrolled = (props: TInputUncontrolledProps) => {
 	const writingReturn = useWriting();
 	const [[state]] = writingReturn;
-	const [selection, selectionDispatch] = useSelect(writingReturn);
+	const [[selection]] = useSelect(writingReturn);
 
 	const [acState, acDispatch] = props.acReducer ?? useReducer(autocompleteReducer, AUTOCOMPLETE_SETTINGS.inputText);
 	// const [acState, acDispatch] = useReducer(autocompleteReducer, AUTOCOMPLETE_SETTINGS.inputText);

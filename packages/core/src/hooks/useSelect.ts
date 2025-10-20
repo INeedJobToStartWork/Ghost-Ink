@@ -5,30 +5,64 @@ import { useEffectInput } from "@/hooks";
 import type { useWriting } from "@/hooks";
 
 //----------------------
-// Functions
+// CONSTANTS
 //----------------------
 
 /**
+ * Default Settings for the Select Hook
+ * @see {@link useSelect}
+ * @see {@link TOptions}
+ */
+export const SETTINGS_DEFAULT_USESELECT: TOptions = {
+	strategies: {
+		selectReducer: selectReducer
+	}
+} as const;
+
+//----------------------
+// Functions
+//----------------------
+
+/** @dontexport */
+type TOptions = {
+	/**
+	 * The strategies to use for the writing hook
+	 */
+	//TODO: Possible, if you will change X strategy you will lose the current state at them, prevent from this or add notation.
+	strategies: {
+		/**
+		 * The reducer function to use for the selection state
+		 */
+		selectReducer: typeof selectReducer;
+	};
+};
+
+/**
  * Hook to manage text selection state and update selection based on user input.
- * Integrates with text and cursor state from `useWriting` hook.
+ * Integrates with text and cursor state from {@link useWriting} hook.
  *
  * Handles key input for:
- * - Ctrl + A to select all text and move cursor to end.
- * - Shift + Arrow keys to extend selection.
- * - Arrow keys without Shift to clear selection.
+ * - `Ctrl + A` to select all text and move cursor to end.
+ * - `Shift + Arrow keys` to extend selection.
+ * - `Arrow keys without Shift` to clear selection.
  * - Text input replacing current selection.
  *
  * @example
  * ```ts
- * const [selection, selectionDispatch] = useSelect(useWriting());
+ * const [[selection, selectionDispatch]] = useSelect(useWriting());
+ * const [[selection, selectionDispatch], [settings, setSettings]] = useSelect(useWriting());
  * ```
  *
  * @param writingState - The state and dispatch tuple from `useWriting` hook, including text and cursor state.
- * @returns `selectReducer` A tuple with the current selection state and a dispatch function to update selection.
- *
+//  * @returns `selectReducer` A tuple with the current selection state and a dispatch function to update selection.
+ * @returns a tuple with two items:
+ * 1. `[selection, setSelectDispatch]` — `selectReducer` the current selection state and a dispatch function to update selection.
+ * 3. `[settings, setSettings]` — the current settings to set in run time.
  */
-export const useSelect = (writingState: ReturnType<typeof useWriting>) => {
-	const [selection, setSelectDispatch] = useReducer(selectReducer, {
+export const useSelect = (writingState: ReturnType<typeof useWriting>, options?: Partial<TOptions>) => {
+	//TODO: Make it in one State to optimize i guess
+	const [settings, setSettings] = useState<TOptions>({ ...SETTINGS_DEFAULT_USESELECT, ...options });
+	const [selection, setSelectDispatch] = useReducer(settings.strategies.selectReducer, {
 		from: 0,
 		to: 0,
 		anchor: 0,
@@ -51,7 +85,7 @@ export const useSelect = (writingState: ReturnType<typeof useWriting>) => {
 			}
 		},
 		EXTENDING_SELECTION: {
-			when: (input, key) => key.shift && (key.leftArrow || key.rightArrow),
+			when: (_, key) => key.shift && (key.leftArrow || key.rightArrow),
 			do: (_, key) => {
 				setSelectDispatch({
 					type: "EXTEND_SELECTION",
@@ -65,7 +99,7 @@ export const useSelect = (writingState: ReturnType<typeof useWriting>) => {
 			}
 		},
 		REMOVING_SELECTED_TEXT: {
-			when: (input, key) => key.delete || key.backspace,
+			when: (_, key) => key.delete || key.backspace,
 			do: () => {
 				setStateDispatch({ type: "REMOVE", payload: { from: selection.from, to: selection.to } });
 				setSelectDispatch({ type: "CLEAR_SELECTION" });
@@ -73,7 +107,7 @@ export const useSelect = (writingState: ReturnType<typeof useWriting>) => {
 		},
 		CLEAR_OR_REPLACE_SELECTION: {
 			when: () => true,
-			do: (input, key) => {
+			do: (_, key) => {
 				//TODO: That should be in useEffect but useEffect break somewhere order of generation, for sure it will break something
 				if (lastPosition != cursorState) setLastPosition(cursorState);
 				if (
@@ -89,5 +123,8 @@ export const useSelect = (writingState: ReturnType<typeof useWriting>) => {
 		}
 	});
 
-	return [selection, setSelectDispatch] as [typeof selection, typeof setSelectDispatch];
+	return [
+		[selection, setSelectDispatch],
+		[settings, setSettings]
+	] as [[typeof selection, typeof setSelectDispatch], [typeof settings, typeof setSettings]];
 };

@@ -5,22 +5,29 @@ import { useEffect, useState } from "react";
 //----------------------
 // Types
 //----------------------
-
+/**
+ * This type defines the structure of an input handler.
+ * Each handler has two properties:
+ * - `do`: A function that performs the action when the `when` condition is met.
+ * - `when`: A function that determines whether the `do` action should be performed.
+ */
 type InputHandler = Record<
 	string,
 	{
+		/** A function that performs the action when the `when` condition is met. */
 		do: (input: string, key: Key) => void;
+		/** A function that determines whether the `do` action should be performed. */
 		when: (input: string, key: Key) => boolean;
 	}
 >;
 
 //----------------------
-// Hook
+// Functions
 //----------------------
 
 /**
- * This hook is passing actions to `useEffect` when `when` is triggered by `useInput`.
- * It does solve problem with order of render execution when `useInput` is one rerender before.
+ * This hook is passing actions to {@link useEffect} when `when` is triggered by {@link useInput}.
+ * It does solve problem with order of render execution when {@link useInput} is one rerender before.
  *
  * @example
  * ```ts

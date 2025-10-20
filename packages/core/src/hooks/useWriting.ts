@@ -26,7 +26,8 @@ type TOptions = {
 	/**
 	 * The strategies to use for the writing hook
 	 */
-	//TODO: Possible, if you will change X strategy you will lose the current state at them, prevent from this or add notation.
+	//TODO: Possible, if you will change X strategy you will lose the current state at them, prevent from this or add notation and warn user.
+	//TODO: Write strategies type cuz probly this will be bad
 	strategies: {
 		/**
 		 * The reducer function to use for the cursor position
@@ -61,7 +62,8 @@ type TOptions = {
  */
 export const useWriting = (
 	/**
-	 * @default {@link SETTINGS_DEFAULT_USEWRITING}
+	 * @default SETTINGS_DEFAULT_USEWRITING
+	 * @see {@link SETTINGS_DEFAULT_USEWRITING}
 	 */
 	options?: Partial<TOptions>
 ) => {

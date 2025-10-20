@@ -28,7 +28,8 @@ type TOptions = {
 	/**
 	 * The strategies to use for the writing hook
 	 */
-	//TODO: Possible, if you will change X strategy you will lose the current state at them, prevent from this or add notation.
+	//TODO: Possible, if you will change X strategy you will lose the current state at them, prevent from this or add notation and warn user.
+	//TODO: Write strategies type cuz probly this will be bad
 	strategies: {
 		/**
 		 * The reducer function to use for the selection state
@@ -53,11 +54,12 @@ type TOptions = {
  * const [[selection, selectionDispatch], [settings, setSettings]] = useSelect(useWriting());
  * ```
  *
- * @param writingState - The state and dispatch tuple from `useWriting` hook, including text and cursor state.
-//  * @returns `selectReducer` A tuple with the current selection state and a dispatch function to update selection.
+ * @param writingState - The state and dispatch tuple from {@link useWriting} hook, including text and cursor state.
  * @returns a tuple with two items:
- * 1. `[selection, setSelectDispatch]` — `selectReducer` the current selection state and a dispatch function to update selection.
- * 3. `[settings, setSettings]` — the current settings to set in run time.
+ * 1. `[selection, setSelectDispatch]` — {@link selectReducer} the current selection state and a dispatch function to update selection.
+ * 2. `[settings, setSettings]` — the current settings to set in run time.
+ * @default SETTINGS_DEFAULT_USESELECT
+ * @see {@link SETTINGS_DEFAULT_USESELECT}
  */
 export const useSelect = (writingState: ReturnType<typeof useWriting>, options?: Partial<TOptions>) => {
 	//TODO: Make it in one State to optimize i guess

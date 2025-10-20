@@ -62,16 +62,6 @@ export const InputUncontrolled = (props: TInputUncontrolledProps) => {
 	const [[selection]] = useSelect(writingReturn);
 
 	const [acState, acDispatch] = props.acReducer ?? useReducer(autocompleteReducer, AUTOCOMPLETE_SETTINGS.inputText);
-	// const [acState, acDispatch] = useReducer(autocompleteReducer, AUTOCOMPLETE_SETTINGS.inputText);
-	// const [acState, acDispatch] = useAutocomplete("inputText", { currentSuggestions: props.initAutocomplete ?? [] });
-	// const [acState, acDispatch] = useAutocomplete("inputText", {});
-	// const [acState, acDispatch] = useAutocomplete("inputText");
-	// const [acState, acDispatch] = useReducer(autocompleteReducer, {
-	// 	storeSystem: stringStoreSystem,
-	// 	filter: (input: string) => (suggestion: string) => suggestion.toLowerCase().startsWith(input.toLowerCase()),
-	// 	currentSuggestions: props.initAutocomplete ?? []
-	// });
-
 	useEffect(() => {
 		props.onChange(props.initialValue);
 		acDispatch({ type: "ADD_SUGGESTION", payload: props.initAutocomplete });

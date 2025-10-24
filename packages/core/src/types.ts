@@ -2,6 +2,8 @@
 // Types
 //----------------------
 
+import type { Dispatch } from "react";
+
 /**
  * ONLY TO USE IN DEVELOPMENT
  * @internal @dontexport
@@ -59,3 +61,11 @@ export type TAlphabet =
 	| "x"
 	| "y"
 	| "z";
+
+/**
+ * Return type of `useReducer`
+ *
+ * @template T - The reducer function type
+ * @dontexport
+ */
+export type UseReducerReturn<T extends (...args: any[]) => any> = [Parameters<T>[0], Dispatch<Parameters<T>[1]>];

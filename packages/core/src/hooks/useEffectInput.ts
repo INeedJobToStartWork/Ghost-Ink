@@ -46,7 +46,8 @@ type InputHandler = Record<
  * @see {@link useInput}
  *
  */
-export const useEffectInput = (handlers: InputHandler): void => {
+export const useEffectInput = (handlers: InputHandler | undefined): void => {
+	if (handlers == void 0) return;
 	const [activeHandler, setActiveHandler] = useState<
 		{ index: string; useInput: [input: string, key: Key] } | undefined
 	>(void 0);

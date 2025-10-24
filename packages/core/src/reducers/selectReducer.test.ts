@@ -23,10 +23,11 @@ describe("[FUNCTION] selectReducer", () => {
 			};
 			const result = selectReducer({}, action);
 			expect(result).toEqual({
-				from: 5,
-				to: 5,
-				anchor: 5,
-				direction: "left"
+				anchor: 0,
+				direction: "right",
+				from: 0,
+				max: 0,
+				to: 0
 			});
 		});
 
@@ -68,9 +69,10 @@ describe("[FUNCTION] selectReducer", () => {
 			};
 			const result = selectReducer(state, action);
 			expect(result).toEqual({
-				from: 4,
-				to: 4,
-				anchor: 4,
+				anchor: 0,
+				from: 0,
+				max: 0,
+				to: 0,
 				direction: "right"
 			});
 		});

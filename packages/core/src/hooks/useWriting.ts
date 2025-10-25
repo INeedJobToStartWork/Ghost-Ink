@@ -1,6 +1,7 @@
 import { useReducer, useState } from "react";
 import { stringReducer, cursorReducer, CURSOR_ACTIONS_TYPES, STRING_ACTIONS_TYPES } from "@/reducers";
 import useEffectInput from "./useEffectInput";
+import type { UseReducerReturn } from "@/types";
 
 //----------------------
 // CONSTANTS
@@ -8,6 +9,8 @@ import useEffectInput from "./useEffectInput";
 
 /**
  * Default Settings for the Writing Hook
+ *
+ * @readonly
  * @see {@link useWriting}
  * @see {@link TOptions}
  */
@@ -18,9 +21,90 @@ export const SETTINGS_DEFAULT_USEWRITING: TOptions = {
 	}
 } as const;
 
+/**
+ * Input Listeners for the {@link useEffectInput} used by {@link useWriting}
+ *
+ * Handles Input For:
+ * 1. `MOVE_CURSOR` - Move cursor left or right
+ * 2. `DELETE_CHAR_LEFT` - Delete character left of cursor (For Backspace)
+ * 3. `ADD_CHAR_RIGHT` - Add character right of cursor (For typing)
+ *
+ * @example
+ * ```ts
+ * const [state, setValueDispatch] = useReducer(stringReducer, "");
+ * const [stateCursor, setCursorDispatch] = useReducer(cursorReducer, 0);
+ * useEffectInput(INPUT_LISTENERS_USEWRITING([state, setValueDispatch], [stateCursor, setCursorDispatch]));
+ * ```
+ *
+ * @param stringReducer - Return of `useReducer(stringReducer, ...)`
+ * @param cursorReducer - Return of `useReducer(cursorReducer, ...)`
+ *
+ *
+ * @returns The input listeners object
+ *
+ * @see {@link useWriting}
+ * @see {@link useEffectInput}
+ * @see {@link stringReducer}
+ * @see {@link cursorReducer}
+ */
+export const INPUT_LISTENERS_USEWRITING = (
+	[state, setValueDispatch]: UseReducerReturn<typeof SETTINGS_DEFAULT_USEWRITING.strategies.stringReducer>,
+	[stateCursor, setCursorDispatch]: UseReducerReturn<typeof SETTINGS_DEFAULT_USEWRITING.strategies.cursorReducer>
+) =>
+	({
+		MOVE_CURSOR: {
+			when: (_, key) => key.leftArrow || key.rightArrow,
+			do: (_, key) => {
+				setCursorDispatch({
+					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
+					payload: key.leftArrow ? -1 : 1,
+					max: state.length
+				});
+			}
+		},
+		/** Delete character left of cursor (For Backspace)*/
+		DELETE_CHAR_LEFT: {
+			when: (_, key) => key.backspace || key.delete,
+			do: () => {
+				if (stateCursor <= 0) return;
+				setValueDispatch({
+					type: STRING_ACTIONS_TYPES.REMOVE,
+					payload: {
+						from: stateCursor - 1,
+						value: 1
+					}
+				});
+				setCursorDispatch({
+					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
+					payload: -1,
+					max: state.length
+				});
+			}
+		},
+		/** Add character right of cursor (For typing) */
+		ADD_CHAR_RIGHT: {
+			when: (input, key) => Boolean(input) && !key.ctrl && !key.meta,
+			do: input => {
+				setValueDispatch({
+					type: STRING_ACTIONS_TYPES.ADD,
+					payload: {
+						value: input,
+						from: stateCursor
+					}
+				});
+				setCursorDispatch({
+					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
+					payload: 1,
+					max: state.length + 1
+				});
+			}
+		}
+	}) as const satisfies Parameters<typeof useEffectInput>[0];
+
 //----------------------
 // Types
 //----------------------
+
 /** @dontexport */
 type TOptions = {
 	/**
@@ -71,63 +155,7 @@ export const useWriting = (
 	const [state, setValueDispatch] = useReducer(settings.strategies.stringReducer, "");
 	const [stateCursor, setCursorDispatch] = useReducer(settings.strategies.cursorReducer, 0);
 
-	useEffectInput({
-		MOVE_CURSOR_LEFT: {
-			when: (_, key) => key.leftArrow,
-			do: () => {
-				setCursorDispatch({
-					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
-					payload: -1,
-					max: state.length
-				});
-			}
-		},
-		MOVE_CURSOR_RIGHT: {
-			when: (_, key) => key.rightArrow,
-			do: () => {
-				setCursorDispatch({
-					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
-					payload: 1,
-					max: state.length
-				});
-			}
-		},
-		DELETE_CHAR_LEFT: {
-			when: (_, key) => key.backspace || key.delete,
-			do: () => {
-				if (stateCursor <= 0) return;
-				setValueDispatch({
-					type: STRING_ACTIONS_TYPES.REMOVE,
-					payload: {
-						from: stateCursor - 1,
-						value: 1
-					}
-				});
-				setCursorDispatch({
-					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
-					payload: -1,
-					max: state.length
-				});
-			}
-		},
-		ADD_CHAR_RIGHT: {
-			when: (input, key) => Boolean(input) && !key.ctrl && !key.meta,
-			do: input => {
-				setValueDispatch({
-					type: STRING_ACTIONS_TYPES.ADD,
-					payload: {
-						value: input,
-						from: stateCursor
-					}
-				});
-				setCursorDispatch({
-					type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
-					payload: 1,
-					max: state.length + 1
-				});
-			}
-		}
-	});
+	useEffectInput(INPUT_LISTENERS_USEWRITING([state, setValueDispatch], [stateCursor, setCursorDispatch]));
 
 	return [
 		[state, setValueDispatch],

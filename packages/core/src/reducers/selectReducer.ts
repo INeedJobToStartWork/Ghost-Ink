@@ -122,6 +122,7 @@ export const selectReducer = (state: ISelectionState, action: TSelectionReducerA
 		}
 		case SELECT_ACTIONS_TYPES.START_SELECTION: {
 			return {
+				...state,
 				from: 0,
 				to: 0,
 				anchor: 0,
@@ -165,7 +166,7 @@ export const selectReducer = (state: ISelectionState, action: TSelectionReducerA
 			}
 
 			// // Legacy behavior without anchor point
-			if (position < state.from) {
+			if (position < state.from!) {
 				return {
 					...state,
 					from: position,
@@ -183,6 +184,7 @@ export const selectReducer = (state: ISelectionState, action: TSelectionReducerA
 		}
 		case SELECT_ACTIONS_TYPES.CLEAR_SELECTION: {
 			return {
+				...state,
 				from: void 0,
 				to: void 0,
 				anchor: void 0,
@@ -191,6 +193,7 @@ export const selectReducer = (state: ISelectionState, action: TSelectionReducerA
 		}
 		case SELECT_ACTIONS_TYPES.SELECT_ALL: {
 			return {
+				...state,
 				from: 0,
 				to: action.payload,
 				anchor: 0,

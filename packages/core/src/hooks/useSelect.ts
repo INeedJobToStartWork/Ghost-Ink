@@ -4,6 +4,7 @@ import { selectReducer } from "@/reducers";
 import { useEffectInput } from "@/hooks";
 import type { useWriting } from "@/hooks";
 import type { UseReducerReturn } from "@/types";
+import { inputMapHandler } from "@/utils";
 
 //----------------------
 // CONSTANTS
@@ -105,8 +106,16 @@ export const INPUT_LISTENERS_USESELECT = (
 
 /** @dontexport */
 type TOptions = {
+	//TODO: Better Description and explain how to use that with example for `inputMap`
 	/**
-	 * The strategies to use for the writing hook
+	 * The input map settings used by {@link useEffectInput}
+	 *
+	 * @default INPUT_LISTENERS_USEWRITING
+	 * @see {@link INPUT_LISTENERS_USEWRITING}
+	 */
+	inputMap?: Parameters<typeof inputMapHandler<ReturnType<typeof INPUT_LISTENERS_USESELECT>>>[1];
+	/**
+	 * The strategies to use for the select hook
 	 */
 	//TODO: Possible, if you will change X strategy you will lose the current state at them, prevent from this or add notation and warn user.
 	//TODO: Write strategies type cuz probly this will be bad
@@ -159,7 +168,10 @@ export const useSelect = (writingState: ReturnType<typeof useWriting>, options?:
 	}, [state]);
 
 	useEffectInput(
-		INPUT_LISTENERS_USESELECT([selection, setSelectDispatch], [lastPosition, setLastPosition], writingState)
+		inputMapHandler(
+			INPUT_LISTENERS_USESELECT([selection, setSelectDispatch], [lastPosition, setLastPosition], writingState),
+			settings.inputMap
+		)
 	);
 
 	return [

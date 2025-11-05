@@ -32,7 +32,7 @@ export type TInputHandler = {
  *
  * @see {@link TInputHandler}
  */
-export type TInputHandlerMap = Record<string, TInputHandler>;
+export type TInputHandlerMap = Record<string, TInputHandler | undefined>;
 
 //----------------------
 // Functions
@@ -67,12 +67,13 @@ export const useEffectInput = (handlers: TInputHandlerMap | undefined): void => 
 
 	useEffect(() => {
 		if (activeHandler == void 0) return;
-		handlers[activeHandler.index].do(activeHandler.useInput[0], activeHandler.useInput[1]);
+		handlers[activeHandler.index]?.do(activeHandler.useInput[0], activeHandler.useInput[1]);
 		setActiveHandler(void 0);
 	}, [activeHandler]);
 
 	useInput((input, key) => {
 		for (const [index, handler] of Object.entries(handlers)) {
+			if (handler == void 0) continue;
 			if (handler.when(input, key)) {
 				setActiveHandler({ index: index, useInput: [input, key] });
 				break;

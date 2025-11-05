@@ -171,7 +171,7 @@ export const useWriting = (
 	useEffectInput(
 		inputMapHandler(
 			INPUT_LISTENERS_USEWRITING([state, setValueDispatch], [stateCursor, setCursorDispatch]),
-			options?.inputMap
+			settings.inputMap
 		)
 	);
 

@@ -11,20 +11,20 @@ export const CODE_ESCAPES = {
 	Tab: "\t",
 	Enter: "\n",
 	Return: "\r",
-	Escape: "\u001b",
+	Escape: "\u001B",
 	Space: " ",
 
-	Delete: "\u007f",
+	Delete: "\u007F",
 	Insert: "\u0016",
 	Home: "\u0001",
 	End: "\u0005",
 	PageUp: "\u0010",
 	PageDown: "\u0004",
 
-	ArrowUp: "\u001b[A",
-	ArrowDown: "\u001b[B",
-	ArrowLeft: "\u001b[D",
-	ArrowRight: "\u001b[C"
+	ArrowUp: "\u001B[A",
+	ArrowDown: "\u001B[B",
+	ArrowLeft: "\u001B[D",
+	ArrowRight: "\u001B[C"
 } as const;
 
 export default CODE_ESCAPES;

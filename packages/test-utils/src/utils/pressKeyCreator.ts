@@ -1,4 +1,4 @@
-import { render } from "ink-testing-library";
+import type { render } from "ink-testing-library";
 
 //----------------------
 // Functions

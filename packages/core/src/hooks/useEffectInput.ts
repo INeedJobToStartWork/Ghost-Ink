@@ -11,15 +11,28 @@ import { useEffect, useState } from "react";
  * - `do`: A function that performs the action when the `when` condition is met.
  * - `when`: A function that determines whether the `do` action should be performed.
  */
-type InputHandler = Record<
-	string,
-	{
-		/** A function that performs the action when the `when` condition is met. */
-		do: (input: string, key: Key) => void;
-		/** A function that determines whether the `do` action should be performed. */
-		when: (input: string, key: Key) => boolean;
-	}
->;
+// type InputHandler = Record<
+// 	string,
+// 	{
+// 		/** A function that performs the action when the `when` condition is met. */
+// 		do: (input: string, key: Key) => void;
+// 		/** A function that determines whether the `do` action should be performed. */
+// 		when: (input: string, key: Key) => boolean;
+// 	}
+// >;
+export type TInputHandler = {
+	/** A function that performs the action when the `when` condition is met. */
+	do: (input: string, key: Key) => void;
+	/** A function that determines whether the `do` action should be performed. */
+	when: (input: string, key: Key) => boolean;
+};
+
+/**
+ * This type defines the structure of an input handler map.
+ *
+ * @see {@link TInputHandler}
+ */
+export type TInputHandlerMap = Record<string, TInputHandler>;
 
 //----------------------
 // Functions
@@ -46,7 +59,7 @@ type InputHandler = Record<
  * @see {@link useInput}
  *
  */
-export const useEffectInput = (handlers: InputHandler | undefined): void => {
+export const useEffectInput = (handlers: TInputHandlerMap | undefined): void => {
 	if (handlers == void 0) return;
 	const [activeHandler, setActiveHandler] = useState<
 		{ index: string; useInput: [input: string, key: Key] } | undefined

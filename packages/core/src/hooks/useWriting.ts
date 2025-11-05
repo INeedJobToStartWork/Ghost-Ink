@@ -2,6 +2,7 @@ import { useReducer, useState } from "react";
 import { stringReducer, cursorReducer, CURSOR_ACTIONS_TYPES, STRING_ACTIONS_TYPES } from "@/reducers";
 import useEffectInput from "./useEffectInput";
 import type { UseReducerReturn } from "@/types";
+import { inputMapHandler } from "@/utils";
 
 //----------------------
 // CONSTANTS
@@ -107,6 +108,14 @@ export const INPUT_LISTENERS_USEWRITING = (
 
 /** @dontexport */
 type TOptions = {
+	//TODO: Better Description and explain how to use that with example for `inputMap`
+	/**
+	 * The input map settings used by {@link useEffectInput}
+	 *
+	 * @default INPUT_LISTENERS_USEWRITING
+	 * @see {@link INPUT_LISTENERS_USEWRITING}
+	 */
+	inputMap?: Parameters<typeof inputMapHandler<ReturnType<typeof INPUT_LISTENERS_USEWRITING>>>[1];
 	/**
 	 * The strategies to use for the writing hook
 	 */
@@ -139,7 +148,7 @@ type TOptions = {
  * const [[textState, textDispatch], [cursorState, cursorDispatch], [settings, setSettings]] = useWriting();
  * ```
  *
- * @returns a tuple with two items:
+ * @returns a tuple with items:
  * 1. `[text, textDispatch]` — `stringReducer` the current text and a dispatch function
  * 2. `[cursor, cursorDispatch]` — `cursorReducer` the current cursor position and a dispatch function
  * 3. `[settings, setSettings]` — the current settings to set in run time.
@@ -155,7 +164,16 @@ export const useWriting = (
 	const [state, setValueDispatch] = useReducer(settings.strategies.stringReducer, "");
 	const [stateCursor, setCursorDispatch] = useReducer(settings.strategies.cursorReducer, 0);
 
-	useEffectInput(INPUT_LISTENERS_USEWRITING([state, setValueDispatch], [stateCursor, setCursorDispatch]));
+	//----
+	// INPUT MAP HANDLER
+	//----
+
+	useEffectInput(
+		inputMapHandler(
+			INPUT_LISTENERS_USEWRITING([state, setValueDispatch], [stateCursor, setCursorDispatch]),
+			options?.inputMap
+		)
+	);
 
 	return [
 		[state, setValueDispatch],

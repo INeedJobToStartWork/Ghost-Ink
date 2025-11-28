@@ -73,7 +73,7 @@ export const useEffectInput = (handlers: TInputHandlerMap | undefined): void => 
 
 	useInput((input, key) => {
 		for (const [index, handler] of Object.entries(handlers)) {
-			if (handler == void 0) continue;
+			if (handler == void 0 || handlers[index] == void 0) continue;
 			if (handler.when(input, key)) {
 				setActiveHandler({ index: index, useInput: [input, key] });
 				break;

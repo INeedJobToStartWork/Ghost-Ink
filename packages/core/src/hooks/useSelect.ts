@@ -47,8 +47,6 @@ export const SETTINGS_DEFAULT_USESELECT: TOptions = {
  * @see {@link cursorReducer}
  */
 export const INPUT_LISTENERS_USESELECT = (
-	// [state, setValueDispatch]: UseReducerReturn<typeof SETTINGS_DEFAULT_USEWRITING.strategies.stringReducer>,
-	// [stateCursor, setCursorDispatch]: UseReducerReturn<typeof SETTINGS_DEFAULT_USEWRITING.strategies.cursorReducer>
 	[selection, setSelectDispatch]: UseReducerReturn<typeof selectReducer>,
 	[lastPosition, setLastPosition]: ReturnType<typeof useState<number | undefined>>,
 	[[state, setStateDispatch], [cursorState, cursorStateDispatch]]: ReturnType<typeof useWriting>

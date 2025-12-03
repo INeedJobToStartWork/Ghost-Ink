@@ -3,7 +3,6 @@ import { stringReducer, cursorReducer, CURSOR_ACTIONS_TYPES, STRING_ACTIONS_TYPE
 import useEffectInput from "./useEffectInput";
 import type { UseReducerReturn } from "@/types";
 import { inputMapHandler, useReducerConnector } from "@/utils";
-
 //----------------------
 // CONSTANTS
 //----------------------
@@ -87,6 +86,31 @@ export const INPUT_LISTENERS_USEWRITING = (
 		ADD_CHAR_RIGHT: {
 			when: (input, key) => Boolean(input) && !key.ctrl && !key.meta,
 			do: input => {
+				//TODO: Find a better way to handle `CTRL + V`
+				//----
+				// `CTRL + V` Handler
+				//----
+				// INFO: `when` with key.ctrl & input === "v" has so many issues and mostly works only once, so we have to move handling it there.
+				if (input.length > 1) {
+					setValueDispatch({
+						type: STRING_ACTIONS_TYPES.ADD,
+						payload: {
+							value: input,
+							from: stateCursor
+						}
+					});
+					setCursorDispatch({
+						type: CURSOR_ACTIONS_TYPES.MOVE_CURSOR,
+						payload: input.length,
+						max: state.length + input.length
+					});
+					return;
+				}
+
+				//----
+				// Default Input Handler
+				//----
+
 				setValueDispatch({
 					type: STRING_ACTIONS_TYPES.ADD,
 					payload: {

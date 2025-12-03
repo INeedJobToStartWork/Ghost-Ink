@@ -67,7 +67,7 @@ export type TStringReducerAction =
 			payload: {
 				/** Index of adding value @default state.length */
 				from?: number;
-				/** Value to ad */
+				/** Value to add */
 				value: string;
 			};
 			type: typeof STRING_ACTIONS_TYPES.ADD;

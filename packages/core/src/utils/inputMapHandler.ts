@@ -47,7 +47,7 @@ import type { TInputHandler, useEffectInput } from "@/hooks";
 export const inputMapHandler = <T extends Parameters<typeof useEffectInput>[0]>(
 	inputMap: T,
 	settings:
-		| Partial<Record<keyof T | (string & {}), TInputHandler | boolean>>
+		| Partial<Record<keyof T | (string & unknown), TInputHandler | boolean>>
 		| false
 		| ((inputMap: T) => Parameters<typeof useEffectInput>[0])
 		| undefined

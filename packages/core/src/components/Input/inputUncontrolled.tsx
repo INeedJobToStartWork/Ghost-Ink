@@ -25,6 +25,7 @@ type TInputUncontrolledProps = {
 		readonly acReducer?: [Parameters<typeof autocompleteReducer>[0], React.Dispatch<{ type: string; payload?: any }>];
 
 		/** Callback executed when currentSuggestions.length == 0 */
+		// eslint-disable-next-line no-unused-vars
 		readonly autocompleteCB?: (...anyParameters: any) => string[];
 	};
 

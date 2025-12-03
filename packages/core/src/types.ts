@@ -68,4 +68,5 @@ export type TAlphabet =
  * @template T - The reducer function type
  * @dontexport
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type UseReducerReturn<T extends (...args: any[]) => any> = [Parameters<T>[0], Dispatch<Parameters<T>[1]>];

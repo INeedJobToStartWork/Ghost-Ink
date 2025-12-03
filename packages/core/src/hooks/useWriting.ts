@@ -1,8 +1,8 @@
-import { useReducer, useState } from "react";
+import { useState } from "react";
 import { stringReducer, cursorReducer, CURSOR_ACTIONS_TYPES, STRING_ACTIONS_TYPES } from "@/reducers";
 import useEffectInput from "./useEffectInput";
 import type { UseReducerReturn } from "@/types";
-import { inputMapHandler } from "@/utils";
+import { inputMapHandler, useReducerConnector } from "@/utils";
 
 //----------------------
 // CONSTANTS
@@ -67,6 +67,7 @@ export const INPUT_LISTENERS_USEWRITING = (
 		DELETE_CHAR_LEFT: {
 			when: (_, key) => key.backspace || key.delete,
 			do: () => {
+				console.log(stateCursor);
 				if (stateCursor <= 0) return;
 				setValueDispatch({
 					type: STRING_ACTIONS_TYPES.REMOVE,
@@ -161,8 +162,16 @@ export const useWriting = (
 	options?: Partial<TOptions>
 ) => {
 	const [settings, setSettings] = useState<TOptions>({ ...SETTINGS_DEFAULT_USEWRITING, ...options });
-	const [state, setValueDispatch] = useReducer(settings.strategies.stringReducer, "");
-	const [stateCursor, setCursorDispatch] = useReducer(settings.strategies.cursorReducer, 0);
+	const { state, dispatch } = useReducerConnector(
+		{
+			cursorReducer: settings.strategies.cursorReducer,
+			textReducer: settings.strategies.stringReducer
+		},
+		{
+			cursorReducer: 0,
+			textReducer: ""
+		}
+	);
 
 	//----
 	// INPUT MAP HANDLER
@@ -170,18 +179,22 @@ export const useWriting = (
 
 	useEffectInput(
 		inputMapHandler(
-			INPUT_LISTENERS_USEWRITING([state, setValueDispatch], [stateCursor, setCursorDispatch]),
+			//TODO: Should be applied by settings
+			INPUT_LISTENERS_USEWRITING(
+				[state.textReducer, dispatch.textReducer],
+				[state.cursorReducer, dispatch.cursorReducer]
+			),
 			settings.inputMap
 		)
 	);
 
 	return [
-		[state, setValueDispatch],
-		[stateCursor, setCursorDispatch],
+		[state.textReducer, dispatch.textReducer],
+		[state.cursorReducer, dispatch.cursorReducer],
 		[settings, setSettings]
 	] as [
-		[typeof state, typeof setValueDispatch],
-		[typeof stateCursor, typeof setCursorDispatch],
+		[typeof state.textReducer, typeof dispatch.textReducer],
+		[typeof state.cursorReducer, typeof dispatch.cursorReducer],
 		[typeof settings, typeof setSettings]
 	];
 };

@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 import { useEffect, useReducer, useState } from "react";
 import { selectReducer } from "@/reducers";
-import { useEffectInput } from "@/hooks";
+import { INPUT_LISTENERS_USEWRITING, useEffectInput } from "@/hooks";
 import type { useWriting } from "@/hooks";
 import type { UseReducerReturn } from "@/types";
 import { inputMapHandler } from "@/utils";
@@ -75,16 +75,25 @@ export const INPUT_LISTENERS_USESELECT = (
 				});
 			}
 		},
+
 		REMOVING_SELECTED_TEXT: {
-			when: (_, key) => key.delete || key.backspace,
+			when: INPUT_LISTENERS_USEWRITING([state, setStateDispatch], [cursorState, cursorStateDispatch]).DELETE_CHAR_LEFT
+				.when,
 			do: () => {
-				setStateDispatch({ type: "REMOVE", payload: { from: selection.from, to: selection.to } });
-				setSelectDispatch({ type: "CLEAR_SELECTION" });
+				if (selection.from == selection.to) {
+					INPUT_LISTENERS_USEWRITING(
+						[state, setStateDispatch],
+						[cursorState, cursorStateDispatch]
+					).DELETE_CHAR_LEFT.do();
+				} else {
+					setStateDispatch({ type: "REMOVE", payload: { from: selection.from ?? 0, to: selection.to } });
+					setSelectDispatch({ type: "CLEAR_SELECTION" });
+				}
 			}
 		},
 		CLEAR_OR_REPLACE_SELECTION: {
 			when: () => true,
-			do: (_, key) => {
+			do: (input, key) => {
 				//TODO: That should be in useEffect but useEffect break somewhere order of generation, for sure it will break something
 				if (lastPosition != cursorState) setLastPosition(cursorState);
 				if (
@@ -92,8 +101,8 @@ export const INPUT_LISTENERS_USESELECT = (
 					selection.from != undefined &&
 					!(key.leftArrow || key.rightArrow || key.upArrow || key.downArrow)
 				) {
-					// setStateDispatch({ type: "REMOVE", payload: { from: selection.from, to: selection.to } });
-					// setStateDispatch({ type: "ADD", payload: { value: input, from: cursorState } });
+					setStateDispatch({ type: "REMOVE", payload: { from: selection.from, to: selection.to } });
+					setStateDispatch({ type: "ADD", payload: { value: input, from: cursorState } });
 				}
 				setSelectDispatch({ type: "CLEAR_SELECTION" });
 			}
@@ -160,12 +169,26 @@ export const useSelect = (writingState: ReturnType<typeof useWriting>, options?:
 		max: 0,
 		direction: "right"
 	});
-	const [[state], [stateCursor]] = writingState;
-	const [lastPosition, setLastPosition] = useState<number | undefined>(stateCursor);
+	const [[state], [cursorState], [, setWritingSettings]] = writingState;
+	const [lastPosition, setLastPosition] = useState<number | undefined>(cursorState);
+
+	useEffect(() => {
+		setWritingSettings(prev => ({
+			...prev,
+			inputMap: {
+				...prev.inputMap,
+				DELETE_CHAR_LEFT: void 0
+			}
+		}));
+	}, []);
 
 	useEffect(() => {
 		setSelectDispatch({ type: "SET_MAX", payload: state.length });
 	}, [state]);
+
+	//----
+	// INPUT MAP HANDLER
+	//----
 
 	useEffectInput(
 		inputMapHandler(
